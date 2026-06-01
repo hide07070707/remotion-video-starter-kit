@@ -35,7 +35,7 @@ Use this skill as a production guide for making a new Remotion story video from 
    After the strict telop split is approved, create one combined proposal that covers scene role, scene type, emotional goal, production method, image group ID, visual memo, and why scenes can share the same image. Start with a compact table for easy review. Use the detailed prompt in `references/prompt-templates.md` when the user wants full direction notes. Stop and ask the user to approve or edit this combined proposal before continuing.
 
 4. Copyable Image Prompts
-   Create one prompt per image group in copyable fenced code blocks. Include suggested filenames. Assume the user may generate images outside Codex, so make prompts easy to copy.
+   Create copyable prompts for external image-generation tools, grouped by approved image group. Do not generate images inside Codex. Use image IDs such as `IMG001A`. Keep scene text unchanged. Do not put readable text inside images. If existing character assets are used, do not regenerate them with image AI; write separate Remotion placement instructions instead. Usually create one A prompt per image group, adding a B option only for important scenes.
 
 5. Asset Mapping
    After the user provides images/audio, map files to scenes and image groups. If audio is missing, use temporary durations or placeholder paths only when the user approves.

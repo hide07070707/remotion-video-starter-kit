@@ -108,11 +108,23 @@ For each image group, output:
 
 - image group ID
 - covered scenes
-- suggested filename
+- image ID such as `IMG001A`
 - copyable prompt in a fenced code block
 - negative notes such as "no text in image" when needed
+- Remotion overlay notes outside the prompt block
+- existing character placement notes outside the prompt block, if any
 
 Ask the user to generate images externally and place or upload them.
+
+Rules:
+
+- create prompts by image group, not by individual scene
+- do not change scene text
+- do not include readable text inside generated images
+- code blocks must contain only the prompt to paste into an external image generator
+- do not regenerate existing character assets with image AI
+- if existing characters are needed, describe their Remotion placement separately
+- usually output only pattern A; add pattern B only for important scenes or when requested.
 
 ## 6. Asset Mapping Check
 
