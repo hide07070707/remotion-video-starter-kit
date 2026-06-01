@@ -27,6 +27,9 @@ type Scene = {
   note?: string;
 };
 
+const RemotionImg = Img as React.ComponentType<any>;
+const RemotionAudio = Audio as React.ComponentType<any>;
+
 const fallbackScenes: Scene[] = [
   {
     id: 'sample_001',
@@ -61,7 +64,7 @@ const SceneVisual: React.FC<{ scene: Scene }> = ({ scene }) => {
 
   if (scene.image) {
     return (
-      <Img
+      <RemotionImg
         src={staticFile(scene.image)}
         style={{
           width: '100%',
@@ -152,7 +155,7 @@ export const StoryVideo: React.FC<z.infer<typeof storyVideoSchema>> = ({
                   'linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.46))',
               }}
             />
-            {scene.audio ? <Audio src={staticFile(scene.audio)} /> : null}
+            {scene.audio ? <RemotionAudio src={staticFile(scene.audio)} /> : null}
             <SubtitleCard
               text={scene.subtitle}
               bottom={subtitleBottom}
