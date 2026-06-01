@@ -35,7 +35,7 @@ Use this skill as a production guide for making a new Remotion story video from 
    After the strict telop split is approved, create one combined proposal that covers scene role, scene type, emotional goal, production method, image group ID, visual memo, and why scenes can share the same image. Start with a compact table for easy review. Use the detailed prompt in `references/prompt-templates.md` when the user wants full direction notes. Stop and ask the user to approve or edit this combined proposal before continuing.
 
 4. Copyable Image Prompts
-   Create copyable prompts for external image-generation tools, grouped by approved image group. Do not generate images inside Codex. Use image IDs such as `IMG001A`. Keep scene text unchanged. Do not put readable text inside images. If existing character assets are used, do not regenerate them with image AI; write separate Remotion placement instructions instead. Use the normal prompt template for simple projects. Use the detailed prompt template when character consistency, master-image references, A/B variations, Remotion overlay separation, or range-by-range output control matters.
+   Create copyable prompts for external image-generation tools, grouped by approved image group. Do not generate images inside Codex. Use image IDs such as `IMG001A`. Keep scene text unchanged. Do not put readable text inside images. If existing character assets are used, do not regenerate them with image AI; write separate Remotion placement instructions instead. For long projects, output prompts in batches of 10-20 image groups and pause for user review before continuing. Use the normal prompt template for simple projects. Use the detailed prompt template when character consistency, master-image references, A/B variations, Remotion overlay separation, or range-by-range output control matters.
 
 5. Asset Mapping
    After the user provides images/audio, map files to scenes and image groups. If audio is missing, use temporary durations or placeholder paths only when the user approves.
@@ -72,6 +72,7 @@ Use this skill as a production guide for making a new Remotion story video from 
 - `シーン計画＋画像グループ候補を、まず確認しやすい表で出してください。`
 - `必要なら、構図メモや制作方法まで入れた詳細版で出してください。`
 - `画像プロンプトをコピーできる形で出してください。`
+- `まず画像グループ001〜010の画像プロンプトを出してください。出力後、自己チェックして、次の範囲へ進む前に止まってください。`
 - `Remotionで確認したいです。修正サイトも開けるようにしてください。`
 - `新しい物語のmanifestから、手作り演出を入れるべきシーン一覧を作ってください。`
 - `動画化した方が良いシーンを優先順位つきで出してください。`

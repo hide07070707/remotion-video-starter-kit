@@ -126,6 +126,9 @@ Tell beginners to check only the essentials first:
 Rules:
 
 - create prompts by image group, not by individual scene
+- for long projects, output image prompts in batches of 10-20 image groups, such as `001-010`, `011-020`, and `021-030`
+- after each batch, include a brief self-check and wait for user confirmation before continuing to the next batch
+- do not output all image groups at once unless the project is short or the user explicitly asks for a full one-pass output
 - do not change scene text
 - do not include readable text inside generated images
 - code blocks must contain only the prompt to paste into an external image generator
