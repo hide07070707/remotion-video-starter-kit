@@ -1,5 +1,55 @@
 # Prompt Templates
 
+## Script and Supplemental Notes Intake
+
+Use this when the user wants to paste a completed script together with YouTube publishing support notes.
+
+```text
+これから、今回の動画制作に使う「完成台本」と「YouTube投稿準備用の補助資料」を渡します。
+
+重要：
+動画本編に使用してよいのは、下の【A. 完成台本】だけです。
+
+【B. YouTube投稿準備用の補助資料】は、
+動画本編で読み上げたり、テロップ化したりしないでください。
+
+補助資料は、以下の目的だけに使ってください。
+
+・動画の意図や独自性を理解する
+・YouTube説明欄の最終版を作る
+・チャプターを実際の動画時間に合わせて修正する
+・参考文献や出典を整理する
+・YouTubeタグ候補を確認する
+・量産型コンテンツに見えないように確認する
+
+動画制作中に、台本から変更した点、削除した内容、追加した図表、追加した演出、実際の章構成、タイムスタンプ候補を記録してください。
+
+動画完成後には、補助資料の「説明欄下書き」と「仮チャプター」をもとに、
+YouTube Studioへそのまま貼れる「動画説明欄の最終版」を作成してください。
+
+【A. 完成台本】
+
+[ここに完成台本を貼る]
+
+【B. YouTube投稿準備用の補助資料】
+
+[ここに補助資料を貼る]
+
+まずは、上記の【A. 完成台本】と【B. 補助資料】を読み込み、内容を理解してください。
+
+そのうえで、作業前に以下を確認して報告してください。
+
+1. 動画本編として使う範囲
+2. 動画本編に使ってはいけない範囲
+3. この動画の中心論点
+4. この動画で強調すべき具体例・判断軸・結論
+5. 動画完成後に説明欄最終版へ反映すべき情報
+6. 作業中に記録しておくべき変更点
+
+まだ編集や修正は始めず、まず理解内容を確認してください。
+不明な点や、台本と補助資料の境界が曖昧な点があれば、作業前に質問してください。
+```
+
 ## Strict Telop Split Request
 
 Use this prompt when the user gives a script chapter and wants the first exact telop split. This step is transcription and splitting only. Do not add image groups, scene descriptions, or creative interpretation.
@@ -139,4 +189,17 @@ Remotionで後から字幕や図解を重ねる前提にしてください。
 ```text
 読み間違い修正と画像差し替えをしたいので、修正サイトを開けるようにしてください。
 どのファイルが変更されるかも説明してください。
+```
+
+## YouTube Publishing Draft Request
+
+```text
+完成動画の内容と、作業中に記録した変更点、補助資料をもとに、
+YouTube Studioへそのまま貼れる動画説明欄の最終版を作ってください。
+
+本編で実際に扱った内容だけを書いてください。
+チャプターは実際の動画時間に合わせ、具体的な内容がわかる名前にしてください。
+参考文献や出典がある場合は、説明欄内の「参考・出典」に整理してください。
+ハッシュタグは説明欄内に入れ、YouTube Studioのタグ候補は説明欄とは別に出してください。
+未確認のURLや資料は作らず、不明な点があれば質問してください。
 ```

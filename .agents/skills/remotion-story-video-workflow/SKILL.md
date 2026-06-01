@@ -1,6 +1,6 @@
 ---
 name: remotion-story-video-workflow
-description: Guide a beginner-friendly, checkpoint-based workflow for making long-form Remotion story videos from a new script. Use when the user wants to create a new story video, split a script into strict telop scenes, make image groups, create copyable image prompts, build a manifest, preview in Remotion, open the correction UI, propose handmade direction, create optional video-AI prompts, or render the final MP4.
+description: Guide a beginner-friendly, checkpoint-based workflow for making long-form Remotion story videos from a new script and optional supplemental YouTube publishing notes. Use when the user wants to create a new story video, separate script from supplemental material, split a script into strict telop scenes, make image groups, create copyable image prompts, build a manifest, preview in Remotion, open the correction UI, propose handmade direction, create optional video-AI prompts, record production changes, create YouTube description/chapter/tag drafts, or render the final MP4.
 ---
 
 # Remotion Story Video Workflow
@@ -11,6 +11,9 @@ Use this skill as a production guide for making a new Remotion story video from 
 
 - Keep the workflow beginner-friendly. At every step, explain what was created, what the user should check, and what the next instruction should be.
 - Ask questions before acting when important details are missing or ambiguous.
+- At intake, separate `A. Completed Script` from `B. Supplemental YouTube Publishing Notes` when both are provided. Use only the completed script for narration, telops, scenes, and the video body.
+- Never turn supplemental notes into narration, telops, scene text, or video overlays unless the user explicitly moves specific text into the completed script.
+- Use supplemental notes only to understand intent, record production changes, prepare the final YouTube description, adjust chapters to real timestamps, organize sources, and propose tag candidates.
 - Stop for confirmation at major checkpoints: strict telop split, scene plan, image groups, image prompts, asset mapping, manifest draft, Remotion preview, handmade direction, optional video generation, and final render.
 - Do strict telop splitting before creative scene planning. Preserve the original script text exactly.
 - If the start number, chapter range, source text, or split rule is unclear, ask the user before splitting.
@@ -22,7 +25,7 @@ Use this skill as a production guide for making a new Remotion story video from 
 ## Workflow
 
 1. Intake
-   Ask for the script and basic choices: story title, audience, tone, target length, aspect ratio, narration style, image generation tool, voice/audio tool, and whether video AI will be used.
+   Ask for the completed script and, if available, supplemental YouTube publishing notes. If both are pasted together, identify which range is `A. Completed Script` and which range is `B. Supplemental Notes`. Ask clarifying questions if the boundary is unclear. Also ask for basic choices: story title, audience, tone, target length, aspect ratio, narration style, image generation tool, voice/audio tool, and whether video AI will be used.
 
 2. Strict Telop Split
    Use the strict prompt in `references/prompt-templates.md`. Split only the supplied chapter into telop units. Keep all original characters, punctuation, particles, symbols, ellipses, and brackets unchanged. Use the user-specified start number. If the start number is missing, ask for it. Stop and ask the user to approve or edit this strict split.
@@ -56,9 +59,14 @@ Use this skill as a production guide for making a new Remotion story video from 
 11. Final Render
    Before rendering, check for missing media and suspicious video files. For long videos, chunked rendering and concatenation is acceptable. Report the output path clearly.
 
+12. YouTube Publishing Draft
+   After the final video timing is known, use the supplemental notes and the recorded production changes to create a copy-ready YouTube description, corrected chapters, source/reference section, hashtags, and separate YouTube Studio tag candidates. Include only what the finished video actually covers. Do not invent URLs, sources, or claims.
+
 ## User Prompts to Recommend
 
 - `新しい台本を渡します。まず厳密テロップ分割から確認しながら進めてください。`
+- `完成台本と補助資料を渡します。補助資料は本編に使わず、説明欄作成とチャプター調整用として扱ってください。`
+- `台本と補助資料の境界が不明な場合は、作業前に質問してください。`
 - `今回の開始番号は48です。この章だけを原文そのままでテロップ分割してください。`
 - `開始番号や章の範囲で不明な点があれば、先に質問してください。`
 - `このテロップ分割で進めてください。次にシーン計画を作ってください。`
