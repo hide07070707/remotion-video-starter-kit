@@ -24,7 +24,23 @@ Track during production:
 - sources or references that should appear in the final YouTube description
 - tag and hashtag candidates
 
-## 2. Strict Telop Split Check
+## 2. Visual Style Check
+
+Before scene planning, image grouping, or image prompts, ask the user to choose a visual style.
+
+Ask:
+`画風はどうしますか？例として、温かみのある手描き風アニメ背景、水彩絵本風、落ち着いたリアル寄り、シンプルなフラットイラスト、漫画風モノクロ、雑誌の挿絵風などがあります。こんな感じで、という参考画像を渡しても大丈夫です。`
+
+Record:
+
+- selected style
+- reference images, if supplied
+- what to imitate: mood, color, lighting, texture, composition
+- what not to imitate: specific characters, logos, copyrighted designs, exact artwork
+
+If the user does not care, choose a neutral style that fits the audience and story topic, and state the assumption.
+
+## 3. Strict Telop Split Check
 
 Before splitting, confirm these inputs are available:
 
@@ -61,7 +77,7 @@ Ask:
 
 Do not create image groups or a manifest yet.
 
-## 3. Combined Scene Plan And Image Group Check
+## 4. Combined Scene Plan And Image Group Check
 
 Default compact output:
 
@@ -86,7 +102,7 @@ Rules:
 
 Do not create image prompts until approved.
 
-## 4. Image Prompt Check
+## 5. Image Prompt Check
 
 For each image group, output:
 
@@ -98,7 +114,7 @@ For each image group, output:
 
 Ask the user to generate images externally and place or upload them.
 
-## 5. Asset Mapping Check
+## 6. Asset Mapping Check
 
 Output:
 
@@ -107,7 +123,7 @@ Output:
 
 Mark missing assets clearly. Do not hide missing audio or video.
 
-## 6. Manifest Check
+## 7. Manifest Check
 
 Only create or update manifest after the strict telop split and combined scene plan/image-group proposal are approved.
 
@@ -119,7 +135,7 @@ Keep stable IDs:
 
 Explain that manifest is the timeline source for Remotion.
 
-## 7. Preview Check
+## 8. Preview Check
 
 Tell the user exactly what to check:
 
@@ -136,7 +152,7 @@ When correction UI is available, launch or point to:
 
 `http://localhost:3101/`
 
-## 8. Handmade Direction Check
+## 9. Handmade Direction Check
 
 Do not implement immediately. Output candidates with:
 
@@ -145,7 +161,7 @@ Do not implement immediately. Output candidates with:
 
 Ask which set to implement first.
 
-## 9. Video AI Check
+## 10. Video AI Check
 
 Ask whether to use:
 
@@ -161,7 +177,7 @@ For each video candidate, output:
 
 Warn that numbers, tables, and Japanese text should usually stay in Remotion.
 
-## 10. YouTube Publishing Check
+## 11. YouTube Publishing Check
 
 Use this only after the finished video structure and actual or user-approved timestamps are known. If timestamps are not known, do not write the final description yet. First output a timestamp confirmation checklist based on the finished chapter structure.
 

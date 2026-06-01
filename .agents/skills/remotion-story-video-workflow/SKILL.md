@@ -14,6 +14,7 @@ Use this skill as a production guide for making a new Remotion story video from 
 - At intake, separate `A. Completed Script` from `B. Supplemental YouTube Publishing Notes` when both are provided. Use only the completed script for narration, telops, scenes, and the video body.
 - Never turn supplemental notes into narration, telops, scene text, or video overlays unless the user explicitly moves specific text into the completed script.
 - Use supplemental notes only to understand intent, record production changes, prepare the final YouTube description, adjust chapters to real timestamps, organize sources, and propose tag candidates.
+- Ask for the visual style before creating scene plans or image prompts. Offer a few examples and tell the user they may provide reference images for "something like this" style guidance.
 - Stop for confirmation at major checkpoints: strict telop split, combined scene plan and image-group proposal, image prompts, asset mapping, manifest draft, Remotion preview, handmade direction, optional video generation, and final render.
 - Do strict telop splitting before creative scene planning. Preserve the original script text exactly.
 - If the start number, chapter range, source text, or split rule is unclear, ask the user before splitting.
@@ -25,7 +26,7 @@ Use this skill as a production guide for making a new Remotion story video from 
 ## Workflow
 
 1. Intake
-   Ask for the completed script and, if available, supplemental YouTube publishing notes. If both are pasted together, identify which range is `A. Completed Script` and which range is `B. Supplemental Notes`. Ask clarifying questions if the boundary is unclear. Also ask for basic choices: story title, audience, tone, target length, aspect ratio, narration style, image generation tool, voice/audio tool, and whether video AI will be used.
+   Ask for the completed script and, if available, supplemental YouTube publishing notes. If both are pasted together, identify which range is `A. Completed Script` and which range is `B. Supplemental Notes`. Ask clarifying questions if the boundary is unclear. Also ask for basic choices: story title, audience, tone, target length, aspect ratio, narration style, image generation tool, voice/audio tool, whether video AI will be used, and visual style. For visual style, offer examples such as warm hand-drawn animation, watercolor picture-book style, clean editorial illustration, realistic cinematic look, manga-like monochrome, or simple flat illustration. Tell the user they can attach reference images to show the desired atmosphere.
 
 2. Strict Telop Split
    Use the strict prompt in `references/prompt-templates.md`. Split only the supplied chapter into telop units. Keep all original characters, punctuation, particles, symbols, ellipses, and brackets unchanged. Use the user-specified start number. If the start number is missing, ask for it. Stop and ask the user to approve or edit this strict split.
@@ -64,6 +65,7 @@ Use this skill as a production guide for making a new Remotion story video from 
 - `新しい台本を渡します。まず厳密テロップ分割から確認しながら進めてください。`
 - `完成台本と補助資料を渡します。補助資料は本編に使わず、説明欄作成とチャプター調整用として扱ってください。`
 - `台本と補助資料の境界が不明な場合は、作業前に質問してください。`
+- `画風はどうしますか？候補をいくつか出してください。参考画像も渡せます。`
 - `今回の開始番号は48です。この章だけを原文そのままでテロップ分割してください。`
 - `開始番号や章の範囲で不明な点があれば、先に質問してください。`
 - `このテロップ分割で進めてください。次にシーン計画＋画像グループ候補を作ってください。`
