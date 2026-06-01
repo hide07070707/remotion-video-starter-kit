@@ -125,6 +125,9 @@ Rules:
 - do not regenerate existing character assets with image AI
 - if existing characters are needed, describe their Remotion placement separately
 - usually output only pattern A; add pattern B only for important scenes or when requested.
+- use the normal template for quick prompt creation
+- use the detailed template when the user needs master-image consistency, reference-image handling, A/B variants, range-by-range output, or strict separation of Remotion overlays from generated image content
+- if the visual style has not been decided, ask the user before producing final prompts
 
 ## 6. Asset Mapping Check
 
