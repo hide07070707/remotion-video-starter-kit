@@ -1,6 +1,6 @@
 # Handmade Direction Patterns
 
-These patterns come from the WashokuStory production process. Use them as ideas, not as fixed rules.
+These patterns come from a sample story video production process. Use them as ideas, not as fixed rules.
 
 ## Good Places to Add Handmade Direction
 

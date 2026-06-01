@@ -2,7 +2,44 @@
 
 Use these checkpoints to keep the user in control before the project becomes hard to change in Remotion.
 
-## 1. Scene Split Check
+## 1. Strict Telop Split Check
+
+Before splitting, confirm these inputs are available:
+
+- start number
+- chapter text to convert
+- whether chapter headings are included in the source text
+- whether separator lines such as `---` should be excluded
+
+If any of these are unclear, ask the user before continuing.
+
+Output:
+
+```text
+【シーン48】
+字幕本文
+
+【シーン49】
+字幕本文
+```
+
+Rules:
+
+- preserve the source text exactly
+- do not summarize, reword, add, or remove text
+- separator lines made only of `---` or similar marks are excluded
+- start from the user-specified number
+- one scene is up to two lines
+- one line is up to 20 Japanese characters
+- if text exceeds 20 characters, split it instead of rewriting it
+- do not add image groups at this stage
+
+Ask:
+`この厳密テロップ分割で進めて大丈夫ですか？原文と違う箇所、区切りを直したい箇所があれば教えてください。`
+
+Do not create image groups or a manifest yet.
+
+## 2. Scene Plan Check
 
 Output a table:
 
@@ -10,11 +47,11 @@ Output a table:
 | --- | --- | --- | --- | --- | --- |
 
 Ask:
-`このシーン分割で進めて大丈夫ですか？直したい区切り、短くしたい部分、まとめたい部分があれば教えてください。`
+`このシーン計画で進めて大丈夫ですか？直したい区切り、短くしたい部分、まとめたい部分があれば教えてください。`
 
 Do not create a manifest yet.
 
-## 2. Image Group Check
+## 3. Image Group Check
 
 Output a table:
 
@@ -26,7 +63,7 @@ Ask:
 
 Do not create image prompts until approved.
 
-## 3. Image Prompt Check
+## 4. Image Prompt Check
 
 For each image group, output:
 
@@ -38,7 +75,7 @@ For each image group, output:
 
 Ask the user to generate images externally and place or upload them.
 
-## 4. Asset Mapping Check
+## 5. Asset Mapping Check
 
 Output:
 
@@ -47,9 +84,9 @@ Output:
 
 Mark missing assets clearly. Do not hide missing audio or video.
 
-## 5. Manifest Check
+## 6. Manifest Check
 
-Only create or update manifest after scene and image groups are approved.
+Only create or update manifest after the strict telop split, scene plan, and image groups are approved.
 
 Keep stable IDs:
 
@@ -59,7 +96,7 @@ Keep stable IDs:
 
 Explain that manifest is the timeline source for Remotion.
 
-## 6. Preview Check
+## 7. Preview Check
 
 Tell the user exactly what to check:
 
@@ -72,11 +109,11 @@ Tell the user exactly what to check:
 
 When correction UI is available, launch or point to:
 
-`npm run tools:washoku`
+`npm run tools`
 
 `http://localhost:3101/`
 
-## 7. Handmade Direction Check
+## 8. Handmade Direction Check
 
 Do not implement immediately. Output candidates with:
 
@@ -85,7 +122,7 @@ Do not implement immediately. Output candidates with:
 
 Ask which set to implement first.
 
-## 8. Video AI Check
+## 9. Video AI Check
 
 Ask whether to use:
 

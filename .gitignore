@@ -12,13 +12,14 @@ render_parts/
 debug_frames/
 backups/
 *.mp4
+*.mp3
+*.wav
 *.mov
 *.avi
 *.mkv
+*.zip
 
 # Generated story assets
-public/assets/washoku/
-public/assets/keiko-mitsuko-story/
 public/assets/*/manifest_final.json
 public/assets/*/audio/*
 public/assets/*/videos/*
