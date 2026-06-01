@@ -1,0 +1,31 @@
+{
+  "name": "remotion-story-video-template",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A beginner-friendly Remotion template for creating narrated story videos from a manifest.",
+  "scripts": {
+    "start": "remotion preview src/index.ts",
+    "render": "remotion render src/index.ts StoryVideo out/story-video.mp4",
+    "tools": "node scripts/template-tools-server.js",
+    "test": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@remotion/zod-types": "^4.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "remotion": "4.0.0",
+    "zod": "^3.22.3"
+  },
+  "devDependencies": {
+    "@remotion/cli": "4.0.0",
+    "@remotion/eslint-config": "4.0.0",
+    "@types/react": "^18.0.0",
+    "@types/web": "^0.0.86",
+    "eslint": "^8.0.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

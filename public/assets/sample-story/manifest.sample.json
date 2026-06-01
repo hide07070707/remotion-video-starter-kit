@@ -1,0 +1,23 @@
+[
+  {
+    "id": "sample_001",
+    "subtitle": "ある朝、小さな違和感に気づきました。",
+    "image": "assets/sample-story/images/sample-kitchen.svg",
+    "durationInFrames": 120,
+    "note": "ダミーのサンプルシーンです。実案件の台本ではありません。"
+  },
+  {
+    "id": "sample_002",
+    "subtitle": "ここから、物語と解説が少しずつ始まります。",
+    "image": "assets/sample-story/images/sample-kitchen.svg",
+    "durationInFrames": 120,
+    "note": "画像・音声・字幕を差し替えて使ってください。"
+  },
+  {
+    "id": "sample_003",
+    "subtitle": "大切なのは、いきなり作らず、確認しながら進めることです。",
+    "image": "assets/sample-story/images/sample-kitchen.svg",
+    "durationInFrames": 150,
+    "note": "初心者向けの確認用サンプルです。"
+  }
+]

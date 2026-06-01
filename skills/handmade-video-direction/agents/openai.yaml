@@ -1,0 +1,7 @@
+interface:
+  display_name: "Handmade Video Direction"
+  short_description: "Plan handcrafted video moments."
+  default_prompt: "Use $handmade-video-direction to find the scenes that deserve hand-crafted direction."
+
+policy:
+  allow_implicit_invocation: true

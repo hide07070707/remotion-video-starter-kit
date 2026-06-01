@@ -1,0 +1,39 @@
+# Secrets
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+node_modules/
+
+# Generated outputs
+out/
+render_parts/
+debug_frames/
+backups/
+*.mp4
+*.mov
+*.avi
+*.mkv
+
+# Generated story assets
+public/assets/washoku/
+public/assets/keiko-mitsuko-story/
+public/assets/*/manifest_final.json
+public/assets/*/audio/*
+public/assets/*/videos/*
+public/assets/*/images/*
+!public/assets/sample-story/images/sample-kitchen.svg
+!public/assets/*/audio/.gitkeep
+!public/assets/*/videos/.gitkeep
+
+# Local correction data
+public/assets/shared/corrections.json
+
+# Logs and editor files
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

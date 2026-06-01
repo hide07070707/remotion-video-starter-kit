@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-label="Sample kitchen placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#f5ead6"/>
+      <stop offset="52%" stop-color="#d9dfd6"/>
+      <stop offset="100%" stop-color="#25313c"/>
+    </linearGradient>
+    <filter id="soft">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1920" height="1080" fill="#000" opacity="0.12"/>
+  <circle cx="430" cy="250" r="190" fill="#fff7d7" opacity="0.35" filter="url(#soft)"/>
+  <rect x="260" y="255" width="460" height="330" rx="12" fill="#f7f1df" opacity="0.54"/>
+  <rect x="310" y="315" width="145" height="210" fill="#b8d4de" opacity="0.72"/>
+  <rect x="490" y="315" width="145" height="210" fill="#b8d4de" opacity="0.72"/>
+  <rect x="815" y="555" width="760" height="190" rx="18" fill="#8b6140" opacity="0.78"/>
+  <rect x="250" y="735" width="1500" height="210" fill="#725032" opacity="0.76"/>
+  <ellipse cx="1070" cy="690" rx="235" ry="54" fill="#2b2b2b" opacity="0.25"/>
+  <ellipse cx="1070" cy="638" rx="205" ry="65" fill="#fbf2da"/>
+  <ellipse cx="1070" cy="628" rx="178" ry="44" fill="#d7a365"/>
+  <path d="M990 610c50 30 115 30 165 0" stroke="#6f4424" stroke-width="12" fill="none" opacity="0.45"/>
+  <path d="M1020 520c-28-90 50-110 22-190M1090 520c-18-84 70-128 42-210M1150 520c0-72 78-110 70-172" stroke="#ffffff" stroke-width="12" opacity="0.42" fill="none" stroke-linecap="round"/>
+  <text x="960" y="985" text-anchor="middle" fill="#ffffff" opacity="0.72" font-family="sans-serif" font-size="34">Sample placeholder image - replace with your own generated image</text>
+</svg>

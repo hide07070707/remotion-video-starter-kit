@@ -1,0 +1,3 @@
+display_name: Remotion Story Video Workflow
+short_description: 新しい台本から、確認しながらRemotion長尺動画を作る進行スキル
+default_prompt: 新しい台本から動画を作りたいです。まずシーン分割から確認しながら進めてください。

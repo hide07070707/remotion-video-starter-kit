@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Story Video 修正ツール</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: system-ui, sans-serif;
+        background: #f7f3ea;
+        color: #2b261f;
+      }
+      header {
+        padding: 18px 24px;
+        background: #2b251d;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      main {
+        display: grid;
+        grid-template-columns: 360px 1fr;
+        gap: 18px;
+        padding: 18px;
+      }
+      button,
+      input,
+      textarea {
+        font: inherit;
+      }
+      button {
+        border: 0;
+        background: #6c4c32;
+        color: white;
+        padding: 10px 14px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 700;
+      }
+      .list,
+      .editor {
+        background: #fffaf0;
+        border: 1px solid #d6c8b4;
+        border-radius: 8px;
+        padding: 14px;
+      }
+      .scene {
+        padding: 12px;
+        border-bottom: 1px solid #e4d7c4;
+        cursor: pointer;
+      }
+      .scene.active {
+        background: #efe2c8;
+      }
+      label {
+        display: block;
+        margin: 14px 0 6px;
+        font-weight: 700;
+      }
+      input,
+      textarea {
+        box-sizing: border-box;
+        width: 100%;
+        border: 1px solid #c8b89f;
+        border-radius: 6px;
+        padding: 10px;
+        background: white;
+      }
+      textarea {
+        min-height: 130px;
+      }
+      .hint {
+        color: #736856;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <strong>Story Video 修正ツール</strong>
+      <button id="save">保存</button>
+    </header>
+    <main>
+      <section class="list" id="list"></section>
+      <section class="editor">
+        <p class="hint">
+          サンプルmanifestを直接編集します。実プロジェクトでは、この形をもとに読み間違い修正や画像差し替え用UIを拡張してください。
+        </p>
+        <label>Scene ID</label>
+        <input id="id" />
+        <label>Subtitle</label>
+        <textarea id="subtitle"></textarea>
+        <label>Image path</label>
+        <input id="image" />
+        <label>Audio path</label>
+        <input id="audio" />
+        <label>Video path</label>
+        <input id="video" />
+        <label>Duration in frames</label>
+        <input id="duration" type="number" />
+      </section>
+    </main>
+    <script>
+      let manifest = [];
+      let selected = 0;
+      const fields = ['id', 'subtitle', 'image', 'audio', 'video', 'duration'];
+
+      const render = () => {
+        document.getElementById('list').innerHTML = manifest
+          .map(
+            (scene, index) =>
+              `<div class="scene ${index === selected ? 'active' : ''}" data-index="${index}">
+                <strong>${scene.id}</strong><br>${scene.subtitle || ''}
+              </div>`,
+          )
+          .join('');
+        document.querySelectorAll('.scene').forEach((el) => {
+          el.addEventListener('click', () => {
+            selected = Number(el.dataset.index);
+            render();
+          });
+        });
+        const scene = manifest[selected] || {};
+        document.getElementById('id').value = scene.id || '';
+        document.getElementById('subtitle').value = scene.subtitle || '';
+        document.getElementById('image').value = scene.image || '';
+        document.getElementById('audio').value = scene.audio || '';
+        document.getElementById('video').value = scene.video || '';
+        document.getElementById('duration').value = scene.durationInFrames || 90;
+      };
+
+      const applyFields = () => {
+        const scene = manifest[selected];
+        if (!scene) return;
+        scene.id = document.getElementById('id').value;
+        scene.subtitle = document.getElementById('subtitle').value;
+        scene.image = document.getElementById('image').value;
+        scene.audio = document.getElementById('audio').value;
+        scene.video = document.getElementById('video').value;
+        scene.durationInFrames = Number(document.getElementById('duration').value || 90);
+      };
+
+      fields.forEach((id) => {
+        document.addEventListener('input', (event) => {
+          if (event.target && event.target.id === id) {
+            applyFields();
+            document.getElementById('list').querySelectorAll('.scene')[selected].innerHTML =
+              `<strong>${manifest[selected].id}</strong><br>${manifest[selected].subtitle || ''}`;
+          }
+        });
+      });
+
+      document.getElementById('save').addEventListener('click', async () => {
+        applyFields();
+        await fetch('/api/manifest', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(manifest),
+        });
+        alert('保存しました');
+      });
+
+      fetch('/api/manifest')
+        .then((res) => res.json())
+        .then((data) => {
+          manifest = data;
+          render();
+        });
+    </script>
+  </body>
+</html>
