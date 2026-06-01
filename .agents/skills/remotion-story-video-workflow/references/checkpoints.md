@@ -61,31 +61,32 @@ Ask:
 
 Do not create image groups or a manifest yet.
 
-## 3. Scene Plan Check
+## 3. Combined Scene Plan And Image Group Check
 
-Output a table:
+Default compact output:
 
-| Draft Scene ID | Narration | Purpose | Estimated Seconds | Image Group Hint | Notes |
-| --- | --- | --- | --- | --- | --- |
+| Image Group | Scenes | Scene Role | Scene Type | Production Method | Visual Memo | Why Shared | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- |
 
 Ask:
-`このシーン計画で進めて大丈夫ですか？直したい区切り、短くしたい部分、まとめたい部分があれば教えてください。`
+`このシーン計画＋画像グループ候補で進めて大丈夫ですか？画像を分けたい場面、まとめたい場面、制作方法を変えたい場面があれば教えてください。`
 
 Do not create a manifest yet.
 
-## 4. Image Group Check
+Use the detailed format in `prompt-templates.md` when the user wants a fuller visual direction document.
 
-Output a table:
+Rules:
 
-| Image Group | Scenes | Shared Visual | Why Shared | Change Risk |
-| --- | --- | --- | --- | --- |
-
-Ask:
-`この画像グループで進めて大丈夫ですか？別画像にしたい場面、同じ画像でよい場面を確認してください。`
+- do not change scene numbers
+- do not change telop text or line breaks
+- use 3-digit image group IDs such as `001`, `002`, `003`
+- classify production method as one of: background AI, character + background, Remotion diagram, Remotion text emphasis, existing assets
+- make clear why scenes share one image, and when the next image change should happen
+- keep numbers, tables, Japanese text, and citations in Remotion rather than image-generation prompts
 
 Do not create image prompts until approved.
 
-## 5. Image Prompt Check
+## 4. Image Prompt Check
 
 For each image group, output:
 
@@ -97,7 +98,7 @@ For each image group, output:
 
 Ask the user to generate images externally and place or upload them.
 
-## 6. Asset Mapping Check
+## 5. Asset Mapping Check
 
 Output:
 
@@ -106,9 +107,9 @@ Output:
 
 Mark missing assets clearly. Do not hide missing audio or video.
 
-## 7. Manifest Check
+## 6. Manifest Check
 
-Only create or update manifest after the strict telop split, scene plan, and image groups are approved.
+Only create or update manifest after the strict telop split and combined scene plan/image-group proposal are approved.
 
 Keep stable IDs:
 
@@ -118,7 +119,7 @@ Keep stable IDs:
 
 Explain that manifest is the timeline source for Remotion.
 
-## 8. Preview Check
+## 7. Preview Check
 
 Tell the user exactly what to check:
 
@@ -135,7 +136,7 @@ When correction UI is available, launch or point to:
 
 `http://localhost:3101/`
 
-## 9. Handmade Direction Check
+## 8. Handmade Direction Check
 
 Do not implement immediately. Output candidates with:
 
@@ -144,7 +145,7 @@ Do not implement immediately. Output candidates with:
 
 Ask which set to implement first.
 
-## 10. Video AI Check
+## 9. Video AI Check
 
 Ask whether to use:
 
@@ -160,7 +161,7 @@ For each video candidate, output:
 
 Warn that numbers, tables, and Japanese text should usually stay in Remotion.
 
-## 11. YouTube Publishing Check
+## 10. YouTube Publishing Check
 
 Use this only after the finished video structure and actual or user-approved timestamps are known. If timestamps are not known, do not write the final description yet. First output a timestamp confirmation checklist based on the finished chapter structure.
 
