@@ -109,12 +109,19 @@ For each image group, output:
 - image group ID
 - covered scenes
 - image ID such as `IMG001A`
+- simple user-facing purpose and image type
 - copyable prompt in a fenced code block
 - negative notes such as "no text in image" when needed
 - Remotion overlay notes outside the prompt block
 - existing character placement notes outside the prompt block, if any
 
 Ask the user to generate images externally and place or upload them.
+
+Tell beginners to check only the essentials first:
+
+- Does the image match the mood of the scene?
+- Is the same image being used for too long?
+- Are readable text, arrows, labels, tables, or checklists kept out of the generated image?
 
 Rules:
 
@@ -128,6 +135,8 @@ Rules:
 - use the normal template for quick prompt creation
 - use the detailed template when the user needs master-image consistency, reference-image handling, A/B variants, range-by-range output, or strict separation of Remotion overlays from generated image content
 - if the visual style has not been decided, ask the user before producing final prompts
+- even for Remotion diagrams, cards, comparison tables, checklists, or text emphasis scenes, create a background/atmosphere prompt with enough empty space for overlays
+- do not leave diagram scenes as blank white backgrounds unless the user explicitly wants that style
 
 ## 6. Asset Mapping Check
 
