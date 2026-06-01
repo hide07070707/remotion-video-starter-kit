@@ -60,7 +60,7 @@ Use this skill as a production guide for making a new Remotion story video from 
    Before rendering, check for missing media and suspicious video files. For long videos, chunked rendering and concatenation is acceptable. Report the output path clearly.
 
 12. YouTube Publishing Draft
-   After the final video timing is known, use the supplemental notes and the recorded production changes to create a copy-ready YouTube description, corrected chapters, source/reference section, hashtags, and separate YouTube Studio tag candidates. Include only what the finished video actually covers. Do not invent URLs, sources, or claims.
+   After the final video timing is known, use the supplemental notes and the recorded production changes to create a copy-ready YouTube description, corrected chapters, source/reference section, hashtags, and separate YouTube Studio tag candidates. Include only what the finished video actually covers. Do not invent URLs, sources, or claims. If exact timestamps are not known, create a timestamp confirmation checklist first and ask the user to fill in the actual times before writing the final copy.
 
 ## User Prompts to Recommend
 
@@ -77,6 +77,8 @@ Use this skill as a production guide for making a new Remotion story video from 
 - `新しい物語のmanifestから、手作り演出を入れるべきシーン一覧を作ってください。`
 - `動画化した方が良いシーンを優先順位つきで出してください。`
 - `完成版MP4を書き出してください。`
+- `動画が完成しました。完成動画の内容に合わせて、YouTube説明欄の最終版を作ってください。`
+- `正確なタイムスタンプが不明な場合は、先にタイムスタンプ確認リストを作ってください。`
 
 ## References
 

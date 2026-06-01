@@ -162,7 +162,13 @@ Warn that numbers, tables, and Japanese text should usually stay in Remotion.
 
 ## 11. YouTube Publishing Check
 
-Use this only after the finished video structure and approximate timestamps are known.
+Use this only after the finished video structure and actual or user-approved timestamps are known. If timestamps are not known, do not write the final description yet. First output a timestamp confirmation checklist based on the finished chapter structure.
+
+Timestamp confirmation checklist format:
+
+| Chapter Candidate | What To Check In Preview | Actual Time |
+| --- | --- | --- |
+| Opening | Start of the main hook | user fills in |
 
 Output:
 
@@ -179,3 +185,7 @@ Rules:
 - do not invent URLs, sources, medical claims, or statistics
 - use supplemental notes as support, not as video-body text
 - if a source is unclear or unverified, ask the user instead of guessing
+- output the copy-ready description separately from YouTube Studio tag candidates
+- include 3 to 5 relevant hashtags in the description body
+- keep SEO natural; do not stuff keywords
+- chapter names must be concrete, not generic labels such as "first", "second", or "summary"
