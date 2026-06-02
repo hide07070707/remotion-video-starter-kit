@@ -21,9 +21,22 @@ backups/
 
 # Generated story assets
 public/assets/*/manifest_final.json
+public/assets/*/manifest.draft.json
+public/assets/*/manifest.final.json
+public/assets/*/manifest.json
 public/assets/*/audio/*
 public/assets/*/videos/*
 public/assets/*/images/*
+public/assets/*/metadata/*
+public/assets/*/prompts/*
+public/assets/*/inbox/**
+!public/assets/*/metadata/.gitkeep
+!public/assets/*/prompts/.gitkeep
+!public/assets/*/inbox/
+!public/assets/*/inbox/characters/
+!public/assets/*/inbox/images/
+!public/assets/*/inbox/characters/.gitkeep
+!public/assets/*/inbox/images/.gitkeep
 !public/assets/sample-story/images/sample-kitchen.svg
 !public/assets/*/audio/.gitkeep
 !public/assets/*/videos/.gitkeep

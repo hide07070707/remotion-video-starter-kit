@@ -3,6 +3,8 @@ const fs = require('fs');
 const path = require('path');
 
 const PORT = Number(process.env.PORT || 3101);
+const HOST = '127.0.0.1';
+const MAX_BODY_BYTES = 1024 * 1024;
 const ROOT = path.resolve(__dirname, '..');
 const MANIFEST = path.join(
   ROOT,
@@ -36,10 +38,22 @@ const server = http.createServer((req, res) => {
 
   if (req.url === '/api/manifest' && req.method === 'POST') {
     let body = '';
+    let tooLarge = false;
     req.on('data', (chunk) => {
+      if (tooLarge) {
+        return;
+      }
       body += chunk;
+      if (Buffer.byteLength(body, 'utf8') > MAX_BODY_BYTES) {
+        tooLarge = true;
+        send(res, 413, JSON.stringify({ ok: false, error: 'Request too large' }), 'application/json');
+        req.destroy();
+      }
     });
     req.on('end', () => {
+      if (tooLarge) {
+        return;
+      }
       try {
         const parsed = JSON.parse(body);
         fs.writeFileSync(MANIFEST, JSON.stringify(parsed, null, 2) + '\n');
@@ -54,6 +68,6 @@ const server = http.createServer((req, res) => {
   send(res, 404, 'Not found');
 });
 
-server.listen(PORT, () => {
-  console.log(`Template correction tool: http://localhost:${PORT}/`);
+server.listen(PORT, HOST, () => {
+  console.log(`Template correction tool: http://${HOST}:${PORT}/`);
 });

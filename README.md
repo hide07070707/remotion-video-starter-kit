@@ -4,6 +4,9 @@
 
 このリポジトリは公開共有用です。実案件の台本、完成動画、生成済み音声、生成済み動画素材、APIキーは含めていません。
 
+公開用テンプレートとして使うため、実案件の素材やAPIキーはGitHubに上げないでください。
+詳しくは [SECURITY.md](SECURITY.md) を確認してください。
+
 ## できること
 
 - 台本を原文のまま厳密にテロップ分割して、確認しながら動画化する
@@ -106,6 +109,38 @@ cp .env.example .env
 `.env` には自分のAPIキーを入れます。
 
 重要: `.env` はGitHubに上げないでください。
+
+## GitHubに公開するときの注意
+
+このテンプレートを自分のGitHubで公開・共有する前に、次を確認してください。
+
+```bash
+git status --short
+npm run test
+```
+
+公開してはいけないもの:
+
+- `.env`
+- APIキー、トークン、パスワード
+- 実案件の台本や補助資料
+- 生成済み音声、動画、画像
+- 完成MP4
+- 公開前のYouTube説明欄や出典メモ
+
+このリポジトリでは、実案件で作られやすい次のフォルダを `.gitignore` で無視しています。
+
+```text
+public/assets/<story>/metadata/
+public/assets/<story>/prompts/
+public/assets/<story>/inbox/
+public/assets/<story>/audio/
+public/assets/<story>/videos/
+public/assets/<story>/images/
+```
+
+もし誤ってAPIキーや実案件素材をコミットした場合は、削除コミットだけでは不十分です。
+APIキーはすぐに無効化・再発行し、Git履歴からも消してから公開してください。
 
 ## manifestとは
 
