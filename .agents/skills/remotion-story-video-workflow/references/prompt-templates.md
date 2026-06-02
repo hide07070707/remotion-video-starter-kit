@@ -4,6 +4,28 @@
 
 Use this when the user wants to paste a completed script together with YouTube publishing support notes.
 
+### Beginner Paste Template
+
+Use this first when the user has not yet pasted the script, or seems unsure what to provide.
+
+```text
+まず、下の形で貼ってください。
+補助資料がない場合は、【B. 補助資料】は空欄で大丈夫です。
+
+【A. 完成台本】
+ここに動画本編で読み上げる台本を貼ってください。
+
+【B. 補助資料】
+ここに、説明欄下書き、仮チャプター、出典、タグ候補、制作メモなどがあれば貼ってください。
+
+貼り終わったら、私がまず次の3つを確認します。
+1. 動画本編として使う範囲
+2. 補助資料として扱う範囲
+3. 厳密テロップ分割をシーン1から始めてよいか、全文を対象にしてよいか
+```
+
+### Full Intake Template
+
 ```text
 これから、今回の動画制作に使う「完成台本」と「YouTube投稿準備用の補助資料」を渡します。
 
@@ -54,7 +76,7 @@ YouTube Studioへそのまま貼れる「動画説明欄の最終版」を作成
 
 Use this prompt when the user gives a script chapter and wants the first exact telop split. This step is transcription and splitting only. Do not add image groups, scene descriptions, or creative interpretation.
 
-If the start number, chapter range, or source text is missing, ask the user before using this prompt.
+Default to scene 1 and all of `A. Completed Script`. Ask only if the user needs a different start number, if the script is too long to check at once, or if the source text boundary is unclear.
 
 ```text
 命令書
@@ -88,8 +110,9 @@ If the start number, chapter range, or source text is missing, ask the user befo
 
 【進行ルール】
 
-・今回貼られた章のみを出力して停止すること
-・他の章には進まないこと
+・指定範囲がない場合は、【A. 完成台本】の全文を対象にすること
+・長すぎて確認しにくい場合は、区切りのよい範囲ごとに出力して停止すること
+・範囲を分ける場合は、次にどこから再開するかを明記すること
 ・章番号や見出しも、原文に含まれている場合は原文どおり扱うこと
 
 【禁止事項】
@@ -129,10 +152,10 @@ If the start number, chapter range, or source text is missing, ask the user befo
 ・20文字制限への対応として、削除や言い換えをしていないか
 
 今回の開始番号
-[ここに開始番号を入力してください（例：48）]
+[通常は1。ユーザー指定がある場合のみ変更]
 
 変換する本文台本
-[ここに今回変換したい1章分だけを貼る]
+[通常は【A. 完成台本】全文。長い場合は確認しやすい範囲]
 ```
 
 ## Combined Scene Plan And Image Group Request
@@ -335,6 +358,95 @@ Detailed direction request:
 [ここに前工程で出力したシーンリストを貼る]
 ```
 
+## Character Master Prompt Request
+
+Use this after the combined scene plan and image-group proposal is approved, and before image-group prompts.
+
+### Character Extraction First
+
+```text
+承認済みのシーン計画＋画像グループ候補をもとに、
+この物語に登場する人物を整理してください。
+
+目的：
+後で外部画像生成AIで作る各シーン画像の人物を同じ見た目に保つため、
+必要な人物だけ、参照用マスター画像を作るか判断します。
+
+まだ画像生成プロンプトは作らず、まず人物整理だけを出してください。
+
+確認項目：
+・人物名または役割
+・物語内での重要度
+・登場する画像グループ
+・年齢感
+・髪型
+・服装
+・体型
+・基本表情
+・雰囲気
+・マスター画像が必要か
+・現在版、回想版、仕事着などの差分が必要か
+・一度だけ出る人物、または画像化しない人物ではないか
+・既存キャラクター素材として扱うべき人物ではないか
+
+出力後、マスター画像を作る人物・作らない人物について確認を待ってください。
+```
+
+### Master Prompt Creation
+
+```text
+承認済みの人物整理をもとに、
+各人物の参照用マスター画像を作成するための画像生成AI用プロンプトを出してください。
+
+画像生成はすべて外部画像生成AIで行います。
+Codex内では画像生成しません。
+
+すでに選んだ画風がある場合は、その画風を自動で反映してください。
+画風が未定の場合は、先に質問してください。
+
+まず、どの画像生成AI用にするか選べるようにしてください。
+候補：
+・ChatGPT image2.0
+・Nano Banana Pro
+・その他
+
+「その他」を選ぶ場合は、使用する画像生成AI名を確認してください。
+ユーザーが詳しい指定を知らない場合は、汎用のコピー用プロンプトとして作ってください。
+
+目的：
+この画像は、今後の各シーン画像で同じ人物を再現するための参照用マスター画像です。
+
+制約条件：
+・文字は入れない
+・背景は白
+・全身正面
+・指定した画風に統一する
+・顔立ち、髪型、服装、体型、年齢感、雰囲気が分かるようにする
+・基本表情は分かりやすく、強すぎない
+・装飾や背景小物は入れすぎない
+・同じ人物として後から参照しやすい、シンプルで見やすい立ち姿にする
+・既存キャラクター素材は画像生成AIで再生成しない
+・特定作品、既存キャラクター、実在人物、ロゴの完全再現はしない
+
+コードブロック内には、外部画像生成AIに貼るプロンプトだけを書いてください。
+各人物には CHAR001_MASTER のようなIDを付けてください。
+
+出力後、ユーザーには次のように案内してください。
+
+```text
+受け取り用フォルダをこちらで作って開きます。
+外部画像生成AIで作ったキャラクターマスター画像を、
+その開いたフォルダへドラッグ＆ドロップしてください。
+
+入れる場所:
+public/assets/<story>/inbox/characters/
+
+ファイル名はそのままで大丈夫です。
+入れ終わったら「入れました」と教えてください。
+Codexが確認して、必要に応じて CHAR001_MASTER.png のような名前へ整理します。
+```
+```
+
 ## Copyable Image Prompt Request
 
 ### Normal Version
@@ -354,6 +466,10 @@ Detailed direction request:
 読ませたい文字や図解は、あとでRemotion側で重ねます。
 画像生成AIには、背景・人物・雰囲気・状況が分かる画像だけを作らせます。
 
+承認済みのキャラクターマスター画像がある場合は、
+各画像グループのプロンプトでそのマスター画像を参照する前提にします。
+顔立ち・髪型・服装・体型・年齢感はマスター画像に合わせます。
+
 長い動画では、画像プロンプトは一気に全件出さず、10〜20画像グループずつ作ります。
 標準は「画像グループ001〜010」「画像グループ011〜020」のように区切り、
 各バッチの出力後にルール違反がないか自己チェックし、人間の確認を待ってから次へ進みます。
@@ -370,9 +486,12 @@ Codex内で画像生成はしません。
 ・長い動画では10〜20画像グループずつ出力し、各バッチごとに確認する
 ・全画像グループを一括で出力しない。短い動画、またはユーザーが明示した場合のみ一括出力を検討する
 ・シーン本文は変更しない
-・画像IDは IMG001A の形式にする
+・画像IDは img_001 の形式にする
+・A/B案がある場合は img_001_A、img_001_B の形式にする
+・各画像グループには、外部画像生成AIから保存するときの保存名も書く
 ・画像内に読める文字は入れない
 ・既存キャラクターは画像生成AIで再生成しない
+・承認済みのキャラクターマスター画像がある場合は、それを参照する
 ・既存キャラクターを使う場合は、Remotionで重ねる前提で配置指示だけを書く
 ・Remotionで重ねる字幕、図解、文字、キャラ配置は、画像プロンプトとは別に書く
 ・コードブロック内には、外部画像生成AIに貼るプロンプトだけを書く
@@ -384,7 +503,8 @@ Codex内で画像生成はしません。
 
 出力形式：
 
-【IMG001A】
+【ID: img_001】
+保存名: img_001.png
 対応画像グループ：
 画像グループ001
 
@@ -421,6 +541,49 @@ Remotionで重ねる要素：
 まず画像グループ001〜010の画像プロンプトを作ってください。
 出力後、画像内テキスト、既存キャラ再生成、Remotion重ね要素の混入がないか自己チェックし、
 次の範囲へ進む前に止まってください。
+```
+
+After outputting each batch, tell the user:
+
+```text
+まず画像グループ001〜010の画像プロンプトを出しました。
+確認してください。
+
+次の範囲へ進む場合は「011〜020へ進んで」と言ってください。
+```
+
+Do not tell the user they must generate images before moving to the next prompt batch. Some users generate images after all prompt batches are complete.
+
+When the user is ready to provide generated images, tell them:
+
+```text
+受け取り用フォルダをこちらで作って開きます。
+外部画像生成AIで作った画像を、
+その開いたフォルダへドラッグ＆ドロップしてください。
+
+入れる場所:
+public/assets/<story>/inbox/images/001-010/
+
+このフォルダには、画像グループ001〜010の画像だけを入れてください。
+ダウンロード名が数字の羅列になる場合は、できるだけプロンプトに書かれている保存名へ変えてください。
+例:
+img_001.png
+img_002.png
+
+完全に同じ名前でなくても、画像IDが分かれば大丈夫です。
+例:
+img_001(2).png
+img_001_修正版.png
+img_002_candidate.png
+
+A/B案を両方残す場合:
+img_001_A.png
+img_001_B.png
+
+Codexが確認後、最終的なファイル名へ整えます。
+画像IDが分からない名前のままになっている場合だけ、どのファイルがどの画像IDか分かる簡単なメモを一緒に渡してください。
+入れ終わったら「001〜010を入れました」と教えてください。
+Codexが確認して、分からないものだけ質問してから整理します。
 ```
 
 ### Detailed Version
@@ -604,9 +767,19 @@ B案を作る場合も、A案と別場面にしないでください。
 
 画像IDは以下の形式にしてください。
 
-・画像グループ001のA案：IMG001A
-・画像グループ001のB案：IMG001B
-・画像グループ080のA案：IMG080A
+・画像グループ001：img_001
+・画像グループ001のA案：img_001_A
+・画像グループ001のB案：img_001_B
+・画像グループ080：img_080
+
+各画像グループには、ユーザーが外部画像生成AIから保存するときの名前も必ず書いてください。
+
+例:
+保存名: img_001.png
+
+A/B案を両方残す場合:
+保存名: img_001_A.png
+保存名: img_001_B.png
 
 【出力前確認】
 
@@ -668,7 +841,10 @@ Remotionで重ねる要素：
 
 ▼パターンA
 ID：
-IMG[画像グループ番号]A
+img_[画像グループ番号]_A
+
+保存名：
+img_[画像グループ番号]_A.png
 
 用途：
 Master Anchor / 基本画
@@ -680,7 +856,10 @@ Master Anchor / 基本画
 
 ▼パターンB
 ID：
-IMG[画像グループ番号]B
+img_[画像グループ番号]_B
+
+保存名：
+img_[画像グループ番号]_B.png
 
 用途：
 Detail / Dynamic / 差し替え候補
@@ -721,6 +900,25 @@ Remotionで後から字幕や図解を重ねる前提にしてください。
 ```text
 読み間違い修正と画像差し替えをしたいので、修正サイトを開けるようにしてください。
 どのファイルが変更されるかも説明してください。
+```
+
+## Production Log Request
+
+Use this before the YouTube publishing draft if production changes are scattered across the chat, manifest, preview notes, or correction work.
+
+```text
+動画完成後の説明欄に反映するため、制作中の変更点を整理してください。
+
+確認してほしいもの:
+・台本から削除、短縮、移動、未使用になった内容
+・追加した図表、比較表、チェックリスト、注釈、強調テロップ
+・追加した手作り演出、効果音、間、動画生成AI素材
+・実際の章構成とタイムスタンプ候補
+・説明欄に入れるべき出典、参考文献、確認が必要な主張
+・YouTubeタイトル、サムネ、タグ候補に影響する変更
+
+補助資料の文章を本編内容として混ぜず、完成動画で実際に扱った内容だけを記録してください。
+不明な変更点や未確認の出典があれば、推測で埋めずに確認事項として分けてください。
 ```
 
 ## YouTube Publishing Draft Request
