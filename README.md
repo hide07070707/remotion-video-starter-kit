@@ -15,12 +15,59 @@
 - 必要な場面だけ動画生成AI用プロンプトを作る
 - 補助資料をもとに、動画完成後のYouTube説明欄・チャプター・タグ候補を作る
 
-## 最初にやること
+## はじめて使う人へ
+
+このリポジトリは、Codexに案内してもらいながら使う前提です。
+ターミナル操作に慣れていない場合は、自分でコマンドを打たず、Codexに次のように頼んでください。
+
+```text
+このGitHubリポジトリを使って、Remotion物語動画テンプレートを動かしたいです。
+READMEを読んで、必要な環境確認、npm install、プレビュー起動まで案内してください。
+私は初心者なので、コマンドを実行する前に何をするか説明してください。
+```
+
+## 必要なもの
+
+- Codexを使える環境
+- GitHubからこのリポジトリを取得できる環境
+- Node.js 18以上
+- npm
+
+Remotionは、このリポジトリの依存関係に含まれています。
+別途Remotionを先に入れておく必要はありません。
+
+Node.jsが入っているか分からない場合は、Codexにこう聞いてください。
+
+```text
+Node.jsとnpmが入っているか確認してください。
+入っていない場合は、インストール方法を初心者向けに案内してください。
+```
+
+## GitHubから取得した後の流れ
+
+1. GitHubからこのリポジトリを取得する
+2. Codexでこのフォルダを開く
+3. CodexにREADMEを読んでもらう
+4. `npm install` で必要なものを入れる
+5. `npm run start` でRemotionプレビューを開く
+6. プレビューで `StoryVideo` を選ぶ
+
+Codexには、次のように頼むと進めやすいです。
+
+```text
+このフォルダを確認して、READMEの手順どおりに初期セットアップを進めてください。
+まず必要なものが入っているか確認し、問題なければ npm install から進めてください。
+```
+
+## 最初にやるコマンド
 
 ```bash
 npm install
 npm run start
 ```
+
+`npm install` は、RemotionやReactなど、このテンプレートに必要なものを入れるコマンドです。
+`npm run start` は、Remotionのプレビュー画面を開くコマンドです。
 
 Remotionのプレビューが開いたら、`StoryVideo` を選んでください。
 
@@ -44,8 +91,16 @@ http://localhost:3101/
 
 `.env.example` をコピーして `.env` を作ってください。
 
+Windowsの場合:
+
 ```bash
 copy .env.example .env
+```
+
+Mac/Linuxの場合:
+
+```bash
+cp .env.example .env
 ```
 
 `.env` には自分のAPIキーを入れます。
