@@ -90,7 +90,12 @@ Rules:
 - start from scene 1 by default, unless the user specifies another number
 - one scene is up to two lines
 - one line is up to 20 Japanese characters
-- if text exceeds 20 characters, split it instead of rewriting it
+- before splitting, inspect the whole sentence and decide in this order:
+  1. if the sentence fits within 20 Japanese characters, keep it as one line
+  2. if the sentence exceeds 20 characters but fits naturally within two lines, keep it in one scene
+  3. only if the sentence cannot reasonably fit within one two-line scene, split it across multiple scenes at a natural meaning boundary
+- do not split just because there is a comma/period, because the line "looks long", or for visual preference
+- if text exceeds the line limit, split it instead of rewriting it
 - do not add image groups at this stage
 
 Ask:
@@ -110,6 +115,9 @@ Then verify:
 
 - no source characters were added, deleted, rewritten, or reordered
 - scene numbers are continuous
+- 20-character sentences are not unnecessarily split
+- sentences that fit in one two-line scene are not unnecessarily split across scenes
+- long sentences split across multiple scenes are split at natural meaning boundaries
 - each line is still within the intended readable length when possible
 - separator lines excluded from source are still not included as captions
 
