@@ -145,8 +145,8 @@ After approval, save to `metadata/visual-style.md`.
 
 Default compact output:
 
-| Image Group | Scenes | Scene Role | Scene Type | Production Method | Visual Memo | Why Shared | Notes |
-| --- | --- | --- | --- | --- | --- | --- | --- |
+| Image Group | Scenes | Scene Role | Scene Type | Cut Type | Production Method | Visual Memo | Why Shared | Switch Reason | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 
 Ask:
 `このシーン計画＋画像グループ候補で進めて大丈夫ですか？画像を分けたい場面、まとめたい場面、制作方法を変えたい場面があれば教えてください。`
@@ -155,13 +155,31 @@ Do not create a manifest yet.
 
 Use the detailed format in `prompt-templates.md` when the user wants a fuller visual direction document.
 
+Before asking the user to fill anything in, check for saved files:
+
+- Use `metadata/telop-split.md` as the scene list when it exists.
+- Use `metadata/visual-style.md` as the approved visual style when it exists.
+- Default the image group start number to `001`.
+- Ask the user only if a required input is missing or ambiguous.
+
+Beginner-friendly questions:
+
+- `保存済みの telop-split.md を使って、画像グループ001から始めてよいですか？`
+- `一度に全部出すと確認が大変なので、まず一部の範囲だけ出しますか？それとも全体案を出しますか？`
+
 Rules:
 
 - do not change scene numbers
 - do not change telop text or line breaks
 - use 3-digit image group IDs such as `001`, `002`, `003`
+- keep image groups from becoming too large: default to 3-5 scenes per group, and 1-3 scenes for important emotional moments
+- even in the same location/time, split groups when the camera distance, emotion, action, prop focus, or viewpoint changes
+- assign a cut type to every group: W (wide), M (medium), CU (close-up), or INS (insert)
+- avoid using the same cut type for 3 or more consecutive groups when possible
+- consider INS shots for meaningful props such as notes, tea cups, clocks, letters, photos, old leads, tools, or other story objects
 - classify production method as one of: background AI, character + background, Remotion diagram, Remotion text emphasis, existing assets
-- make clear why scenes share one image, and when the next image change should happen
+- make clear why scenes share one image, and why the next image change should happen
+- follow the approved `metadata/visual-style.md`; do not hard-code a specific style or mascot/guide character unless the story has one or the user approved it
 - keep numbers, tables, Japanese text, and citations in Remotion rather than image-generation prompts
 
 Do not create image prompts until approved.
