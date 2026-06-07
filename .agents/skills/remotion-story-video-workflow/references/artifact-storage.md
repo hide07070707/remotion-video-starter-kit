@@ -36,6 +36,7 @@ public/assets/<story>/videos/
 | Character master prompts | `prompts/character-master-prompts.md` | Copyable external image-AI prompts |
 | Character master image intake | `inbox/characters/` | Beginner-friendly drag-and-drop receiving folder |
 | Generated character master images | `images/characters/CHAR001_MASTER.png` | Reference images for later image prompts |
+| Image-generator fixed prompt | `prompts/image-generator-fixed-prompt.md` | First prompt to paste into the external image generator to lock master images, style, no-text rules, and `Save filename` behavior |
 | Generated image intake | `inbox/images/` | Beginner-friendly drag-and-drop receiving folder for many generated images |
 | Image prompt batches | `prompts/image-groups-001-010.md` | Copyable external image-AI prompts by batch |
 | Asset mapping | `metadata/asset-map.md` | Maps scenes to images, audio, video, duration |

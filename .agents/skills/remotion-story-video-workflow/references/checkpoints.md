@@ -222,11 +222,30 @@ Tell beginners how to provide generated master images:
 
 ## 6. Image Prompt Check
 
+Before individual image-group prompts, create a story-specific image-generator fixed prompt when character master images, reference images, or a selected visual style will be used. Save it to `prompts/image-generator-fixed-prompt.md`.
+
+The fixed prompt must include:
+
+- uploaded master image order and character/role mapping
+- character consistency rules
+- approved visual style rules
+- no-readable-text/no-logo rules
+- subtitle-safe empty-space rule
+- `Save filename` rule for one-image and multi-image generation
+
+If any of these inputs are missing or ambiguous, ask short beginner-friendly questions before finalizing:
+
+- Which uploaded image number corresponds to which character?
+- Is the saved visual style still correct?
+- Which image generator is being used?
+- Will the user generate one image at a time or multiple images at once? If unsure, recommend one at a time for important character scenes.
+
 For each image group, output:
 
 - image group ID
 - covered scenes
-- image ID such as `img_001`; use `img_001_A` and `img_001_B` only when A/B variants are needed
+- image ID such as `IMG001` or `img_001`; use one convention consistently, and use `_A` / `_B` only when A/B variants are needed
+- `Save filename: IMG001.png` or the matching chosen convention
 - simple user-facing purpose and image type
 - copyable prompt in a fenced code block
 - negative notes such as "no text in image" when needed
@@ -251,6 +270,7 @@ Rules:
 - do not change scene text
 - do not include readable text inside generated images
 - code blocks must contain only the prompt to paste into an external image generator
+- each image prompt must include a clear `Save filename` line that matches the desired downloaded filename
 - do not regenerate existing character assets with image AI
 - if existing characters are needed, describe their Remotion placement separately
 - usually output only pattern A; add pattern B only for important scenes or when requested.
@@ -261,13 +281,13 @@ Rules:
 - even for Remotion diagrams, cards, comparison tables, checklists, or text emphasis scenes, create a background/atmosphere prompt with enough empty space for overlays
 - do not leave diagram scenes as blank white backgrounds unless the user explicitly wants that style
 
-After each approved batch, save to `prompts/image-groups-001-010.md` style files.
+After the fixed prompt is approved, save it to `prompts/image-generator-fixed-prompt.md`. After each approved image-prompt batch, save to `prompts/image-groups-001-010.md` style files.
 
 After outputting a prompt batch, say:
 `まず画像グループ001〜010の画像プロンプトを出しました。確認してください。次の範囲へ進む場合は「011〜020へ進んで」と言ってください。`
 
 When the user is ready to provide generated images, say:
-`受け取り用フォルダ public/assets/<story>/inbox/images/001-010/ をこちらで作って開きます。外部画像生成AIで作った001〜010の画像だけを、この開いたフォルダへドラッグ＆ドロップしてください。ダウンロード名が数字の羅列になる場合は、できるだけプロンプトに書かれている保存名へ変えてください。例: img_001.png、img_002.png。完全に同じ名前でなくても、img_001(2).png、img_001_修正版.png のように画像IDが分かれば大丈夫です。A/B案を両方残す場合は img_001_A.png、img_001_B.png のようにしてください。Codexが確認後、最終的なファイル名へ整えます。画像IDが分からない名前のままになっている場合だけ、どのファイルがどの画像IDか分かる簡単なメモを一緒に渡してください。入れ終わったら「001〜010を入れました」と教えてください。Codexが確認して、分からないものだけ質問してから整理します。`
+`受け取り用フォルダ public/assets/<story>/inbox/images/001-010/ をこちらで作って開きます。外部画像生成AIで作った001〜010の画像だけを、この開いたフォルダへドラッグ＆ドロップしてください。固定プロンプトの Save filename ルールで、できるだけダウンロード名が IMG001.png、IMG002.png のようになるようにしてください。完全に同じ名前でなくても、IMG001(2).png、IMG001_修正版.png のように画像IDが分かれば大丈夫です。A/B案を両方残す場合は IMG001_A.png、IMG001_B.png のようにしてください。Codexが確認後、最終的なファイル名へ整えます。画像IDが分からない名前のままになっている場合だけ、どのファイルがどの画像IDか分かる簡単なメモを一緒に渡してください。入れ終わったら「001〜010を入れました」と教えてください。Codexが確認して、分からないものだけ質問してから整理します。`
 
 ## 7. Asset Mapping Check
 
