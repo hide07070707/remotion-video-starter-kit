@@ -270,7 +270,8 @@ Rules:
 - do not change scene text
 - do not include readable text inside generated images
 - code blocks must contain only the prompt to paste into an external image generator
-- each image prompt must include a clear `Save filename` line that matches the desired downloaded filename
+- each image prompt must include a clear `Save filename` line as file-management information; do not ask the image generator to rename files during image generation
+- when the user wants the image generator to rename the download link after generation, provide this separate follow-up message: `Save filenameをファイル名に付けてください。画像内にはファイル名を描き込まず、対応する保存名でダウンロード用リンクとして出してください。`
 - do not regenerate existing character assets with image AI
 - if existing characters are needed, describe their Remotion placement separately
 - usually output only pattern A; add pattern B only for important scenes or when requested.
@@ -283,11 +284,35 @@ Rules:
 
 After the fixed prompt is approved, save it to `prompts/image-generator-fixed-prompt.md`. After each approved image-prompt batch, save to `prompts/image-groups-001-010.md` style files.
 
-After outputting a prompt batch, say:
-`まず画像グループ001〜010の画像プロンプトを出しました。確認してください。次の範囲へ進む場合は「011〜020へ進んで」と言ってください。`
+After outputting the first image-prompt batch for a story, say:
+`まず画像グループ001〜010の画像プロンプトを出しました。確認してください。次の範囲へ進む場合は「011〜020へ進んで」と言ってください。
+
+画像生成AIで作る前に、まず、先程作成したこの台本用のマスター画像を画像生成AIのチャット欄にアップロードしてください。
+
+例:
+CHAR001_MASTER.png
+CHAR002_MASTER.png
+CHAR003_MASTER.png
+
+その後で、「画像生成AIに最初に貼る固定プロンプト」を貼ると、キャラクターや画風が安定します。
+
+必要なら、
+「画像生成AIに最初に貼る固定プロンプトを出して」
+と言ってください。
+
+画像生成後にファイル名を付け直したい場合は、外部画像生成AIへ次の一文を送ってください。
+
+Save filenameをファイル名に付けてください。
+画像内にはファイル名を描き込まず、対応する保存名でダウンロード用リンクとして出してください。`
+
+After outputting later image-prompt batches, say:
+`画像グループ011〜020の画像プロンプトを出しました。確認してください。次の範囲へ進む場合は「021〜030へ進んで」と言ってください。
+
+画像生成AIで作るときは、先にマスター画像と固定プロンプトを使ってください。
+画像生成後にファイル名を付け直したい場合は、前回と同じ一文を外部画像生成AIへ送ってください。`
 
 When the user is ready to provide generated images, say:
-`受け取り用フォルダ public/assets/<story>/inbox/images/001-010/ をこちらで作って開きます。外部画像生成AIで作った001〜010の画像だけを、この開いたフォルダへドラッグ＆ドロップしてください。固定プロンプトの Save filename ルールで、できるだけダウンロード名が IMG001.png、IMG002.png のようになるようにしてください。完全に同じ名前でなくても、IMG001(2).png、IMG001_修正版.png のように画像IDが分かれば大丈夫です。A/B案を両方残す場合は IMG001_A.png、IMG001_B.png のようにしてください。Codexが確認後、最終的なファイル名へ整えます。画像IDが分からない名前のままになっている場合だけ、どのファイルがどの画像IDか分かる簡単なメモを一緒に渡してください。入れ終わったら「001〜010を入れました」と教えてください。Codexが確認して、分からないものだけ質問してから整理します。`
+`受け取り用フォルダ public/assets/<story>/inbox/images/001-010/ をこちらで作って開きます。外部画像生成AIで作った001〜010の画像だけを、この開いたフォルダへドラッグ＆ドロップしてください。できるだけ IMG001.png、IMG002.png のように分かる名前で保存してください。完全に同じ名前でなくても、IMG001(2).png、IMG001_修正版.png のように画像IDが分かれば大丈夫です。A/B案を両方残す場合は IMG001_A.png、IMG001_B.png のようにしてください。Codexが確認後、最終的なファイル名へ整えます。画像IDが分からない名前のままになっている場合だけ、どのファイルがどの画像IDか分かる簡単なメモを一緒に渡してください。入れ終わったら「001〜010を入れました」と教えてください。Codexが確認して、分からないものだけ質問してから整理します。`
 
 ## 7. Asset Mapping Check
 

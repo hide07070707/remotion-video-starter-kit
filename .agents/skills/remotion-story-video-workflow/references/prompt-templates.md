@@ -576,6 +576,190 @@ Codexが確認して、必要に応じて CHAR001_MASTER.png のような名前�
 
 ## Copyable Image Prompt Request
 
+### ChatGPT Image 2.0 Prompt Builder
+
+Use this when asking Codex or ChatGPT to create copyable image-generation prompts for approved image groups. Do not paste this section into the image-generation chat as the direct fixed prompt; it is for producing the individual prompts.
+
+````text
+あなたは、ChatGPT Image 2.0で使うための画像生成プロンプト作成者です。
+
+目的は、この動画用の各Image Groupについて、ChatGPT Image 2.0に渡しやすい高品質な画像プロンプトを作ることです。
+
+出力するのは「画像そのもの」ではなく、「画像生成用の個別プロンプト」です。
+
+【出力方針】
+
+・各Image Groupごとに、画像生成AIへそのまま渡しやすい形式で出力してください。
+・各画像プロンプトは、日本語メインで書いてください。
+・ただし、画風・撮影・構図・ライティング・禁止事項など、画像生成で効きやすい定型表現は、必要に応じて英語キーワードを併記してください。
+・英語だけの不自然な長文にはしないでください。
+・日本語で情景・感情・人物関係を明確にし、英語で画像生成の精度を補強する方針にしてください。
+
+【マスター画像の設定】
+
+アップロードした5枚の画像は、この動画に登場する人物・動物のマスター画像です。
+
+各マスター画像は、以下のように扱ってください。
+
+・CHAR001_MASTER.png：ハル 現在版
+白い柴犬系の老犬。口元が白く、少し細い体つきで、足腰が弱っている。穏やかで忠実な雰囲気。母のそばで長年暮らしてきた、静かな家族の一員。
+
+・CHAR002_MASTER.png：ハル 若い頃版
+CHAR001_MASTER.png と同じハルの子犬〜若犬時代。白い柴犬系で、小さく、柔らかく、無邪気な雰囲気。家に来たばかりの頃や、家族の中心だった頃のハルとして扱う。
+
+・CHAR003_MASTER.png：母 現在・介護期
+70代前半の日本人女性。穏やかだが疲れを隠している。父の介護を一人で抱え込み、「大丈夫」と言い続けてきた母。優しさ、我慢、限界の近さがにじむ人物。
+
+・CHAR004_MASTER.png：母 若い頃
+CHAR003_MASTER.png と同じ母の十数年前の姿。40代前半〜半ば。家族と暮らし、子犬のハルを迎えた頃の若い母。温かく、家庭的で、穏やかな雰囲気。
+
+・CHAR005_MASTER.png：父 介護期
+70代前半の日本人男性。体力が落ち、介護が必要になっている父。怖い人や悪役ではなく、できないことが増えた悔しさ、悲しさ、尊厳を抱えている普通の父として描く。
+
+【絶対ルール：キャラクター固定】
+
+・各Image Groupに登場する人物・犬は、必ず上記のマスター画像の見た目を参照する指示にしてください。
+・ハル現在版とハル若い頃版は、同じ犬の年齢違いとして扱ってください。
+・母現在版と母若い頃版は、同じ人物の年齢違いとして扱ってください。
+・年齢、髪型、顔立ち、服装の雰囲気、毛色、体格などがImage Groupごとに大きく変わらないようにしてください。
+・マスター画像と違う人物・犬に見える生成を避ける指示を入れてください。
+・指定されていない人物や動物を勝手に追加しない指示を入れてください。
+・父は悪役や怖い人物にしないでください。疲れ、悔しさ、弱さ、尊厳が伝わる普通の父として描く指示にしてください。
+・感情表現は、台本の内容に合わせて自然にしてください。大げさにしすぎないでください。
+
+【絶対ルール：画風固定】
+
+すべての画像プロンプトを、以下の画風で統一してください。
+
+画風：
+実写風シネマティック。日本の古い一軒家、縁側、玄関、台所、廊下、深夜の室内など、生活感のある日本家庭ドラマの空気感。夜は青みのある暗さと室内の暖かい電灯、昼はやわらかい自然光。リアルな写真のような質感、自然な肌、自然な毛並み、浅い被写界深度、映画的な構図。
+
+必要に応じて、以下の英語キーワードを併記してください。
+
+・photorealistic cinematic still
+・realistic Japanese family drama
+・shallow depth of field
+・soft film grain
+・natural skin texture
+・realistic fur texture
+・cinematic composition
+・wide shot
+・medium shot
+・close-up shot
+・insert shot
+・low angle
+・soft warm indoor light
+・blue night shadows
+・natural daylight
+・leave clean negative space for Japanese subtitles
+・no readable text, no captions, no labels, no logos
+・do not create a collage, grid, contact sheet, or multi-panel layout
+
+【重要：画像プロンプトの書き方】
+
+各画像プロンプトは、以下の方針で作成してください。
+
+1. 日本語メインで書く
+   ・シーン説明
+   ・人物や犬の状態
+   ・感情
+   ・家庭内の空気感
+   ・ドラマ上の意味
+   は日本語で自然に書いてください。
+
+2. 英語キーワードを必要に応じて併記する
+   画風、カメラ、構図、照明、禁止事項は、必要に応じて短く英語でも補強してください。
+
+3. 英語は補助として使う
+   ・本文全体を英語だらけにしないでください。
+   ・日本語で意味が伝わることを優先し、英語は画像生成の精度を上げるための補助にしてください。
+
+【重要：画像をまとめないルール】
+
+・各Image Groupは、それぞれ1つの独立した画像ファイルとして生成される想定のプロンプトにしてください。
+・1枚のコラージュ、一覧表、グリッド、コンタクトシート、比較画像、複数パネル画像にまとめる指示にならないようにしてください。
+・必要に応じて、各個別プロンプトの冒頭または本文中に、以下の意味が伝わる一文を自然に含めてください。
+
+「この画像は1枚の独立した画像ファイルとして生成する。コラージュ、グリッド、コンタクトシート、複数パネル画像にしない。」
+
+英語補強例：
+Generate this as one independent image file only. Do not create a collage, grid, contact sheet, comparison sheet, or multi-panel layout.
+
+【Save filename の扱い】
+
+・各画像プロンプトには Save filename を付けてください。
+・ただし Save filename は管理情報であり、画像の中へ描き込む指示にはしないでください。
+・画像の中にファイル名、字幕、説明文、ラベル、ロゴなど、読める文字を入れないことを明記してください。
+・ファイル名の付け直しは画像生成後に別メッセージで依頼する前提なので、画像生成プロンプト自体には「画像の中に文字を入れない」ことを優先して書いてください。
+
+【生成時の注意を各個別プロンプトに反映】
+
+・1枚の画像には、そのImage Groupに必要な人物・犬だけを入れる
+・台本にいない人物や動物を増やさない
+・表情やポーズは自然にする
+・介護や老犬の描写は、痛々しくしすぎず、尊厳と温かさを保つ
+・暗い場面や悲しい場面でも、過度に怖くしない
+・文字は絶対に入れない
+
+【出力形式】
+
+各Image Groupごとに、必ず以下の形式で出力してください。
+
+Image Group XXX
+Save filename:
+IMGXXX.png
+
+Reference images:
+CHAR001_MASTER.png
+CHAR003_MASTER.png
+※必要なものだけ列挙してください。不要なら「None required.」と書いてください。
+
+Prompt:
+ここに、ChatGPT Image 2.0にそのまま渡しやすい完成済みプロンプトを書いてください。
+日本語メインで書き、必要に応じて英語キーワードを併記してください。
+
+Purpose:
+この画像の役割を1〜2行で簡潔に書いてください。
+
+【個別Promptの推奨構成】
+
+各Promptは、必要に応じて以下の流れで自然に構成してください。
+
+・最初に「1枚の独立した画像として生成する」こと
+・誰のマスター画像を使うか
+・シーン説明
+・人物や犬の見た目・状態
+・カメラ
+・ムード
+・照明
+・構図
+・画風
+・禁止事項
+・必要に応じて英語キーワード補強
+
+【出力例の文体ルール】
+
+・日本語を主文にする
+・英語キーワードは短く併記する
+・不必要に冗長にしない
+・そのまま画像生成AIに貼って使いやすい文体にする
+
+【運用ルール】
+
+・原則として1回につき最大3つまでのImage Groupを扱ってください。
+・重要シーン、人物が切り替わるシーン、時代が切り替わるシーンは、1つずつの出力でもよい前提で書いてください。
+
+上記ルールを厳守し、以下に貼られたImage Groupの内容に基づいて、ChatGPT Image 2.0用の画像生成プロンプトを作成してください。
+
+――――――――――
+ここに今回作成したいImage Groupを貼り付けます。
+原則として1回につき最大3つまでです。
+
+この枠内の説明文や例文は処理対象ではありません。
+実際に貼り付けられたImage Groupのみを処理対象にしてください。
+――――――――――
+````
+
 ### Master Reference Fixed Prompt
 
 Use this before individual image-group prompts when the user will upload character master images to an external image-generation chat such as ChatGPT image2.0. Generate a story-specific version by filling the image mapping and visual style from `metadata/characters.md`, `metadata/visual-style.md`, and the approved master image filenames. If any mapping is unclear, ask the user before finalizing it.
@@ -583,6 +767,15 @@ Use this before individual image-group prompts when the user will upload charact
 Ask only the missing beginner-friendly questions:
 
 ```text
+画像生成AIで作る前に、まず、先程作成したこの台本用のマスター画像を画像生成AIのチャット欄にアップロードしてください。
+
+例:
+CHAR001_MASTER.png
+CHAR002_MASTER.png
+CHAR003_MASTER.png
+
+その後で、「画像生成AIに最初に貼る固定プロンプト」を貼ると、キャラクターや画風が安定します。
+
 画像生成AIにアップロードするマスター画像の順番を確認します。
 画像1、画像2、画像3...が、それぞれ誰・何の画像か教えてください。
 分からない場合は、こちらで候補を出します。
@@ -593,69 +786,108 @@ Ask only the missing beginner-friendly questions:
 迷う場合は、最初は1枚ずつがおすすめです。
 ```
 
-Generic fixed prompt template:
+Generic fixed prompt template for direct image generation:
 
 ````text
+画像を生成してください。
+
 アップロードした画像は、この動画に登場する人物・動物・キャラクターのマスター画像です。
 
 各マスター画像は、以下のように扱ってください。
 
-・画像1：[キャラクター名 / 役割]
+・[MASTER001_FILENAME]：[キャラクター名 / 役割]
 [年齢感、見た目、服装、性格、物語上の役割を書く]
 
-・画像2：[キャラクター名 / 役割]
+・[MASTER002_FILENAME]：[キャラクター名 / 役割]
 [年齢感、見た目、服装、性格、物語上の役割を書く]
 
-・画像3：[キャラクター名 / 役割]
+・[MASTER003_FILENAME]：[キャラクター名 / 役割]
 [年齢感、見た目、服装、性格、物語上の役割を書く]
 
-※必要な人数・枚数に応じて、画像4、画像5、画像6...を追加してください。
+※必要な人数・枚数に応じて、マスター画像を追加してください。
 
 【絶対ルール：キャラクター固定】
-・各シーンに登場する人物・動物・キャラクターは、必ず上記のマスター画像の見た目を参照してください。
+・各Image Groupに登場する人物・動物・キャラクターは、必ず上記のマスター画像の見た目を参照してください。
 ・同じ人物や動物の年齢違い・服装違い・時代違いがある場合は、同一人物・同一個体として扱ってください。
-・年齢、髪型、体格、顔立ち、服装の雰囲気、毛色、体格などがシーンごとに大きく変わらないようにしてください。
+・年齢、髪型、顔立ち、服装の雰囲気、毛色、体格などがImage Groupごとに大きく変わらないようにしてください。
 ・マスター画像と違う人物・動物・キャラクターに見える生成は禁止です。
 ・指定されていない人物・動物・キャラクターを勝手に追加しないでください。
 ・感情表現は、台本の内容に合わせて自然にしてください。大げさにしすぎないでください。
 ・人物や動物を悪役・怪物・ホラー風にしないでください。ただし、台本で明確に指定されている場合は除きます。
 
-【絶対ルール：画風の固定】
-・すべての画像を、以下の画風で統一してください。
+【絶対ルール：画風固定】
+すべての画像を、以下の画風で統一してください。
 
 画風：
 [ここに今回の画風を書く。例：実写風シネマティック / 2Dアニメ調 / 水彩風 / 絵本風 など]
 
+英語補強キーワード：
+[必要に応じて、photorealistic cinematic still, shallow depth of field, soft film grain, natural skin texture, realistic fur texture, cinematic composition などを書く]
+
 ・各画像の画風、光、色味、質感、カメラ距離、世界観が大きくズレないようにしてください。
 ・画像内に文字、字幕、看板、ラベル、ロゴは入れないでください。
-・後から字幕を入れるため、画面の上部または左右どちらかに余白を残してください。
+・後から日本語字幕を入れるため、画面の上部または左右どちらかに余白を残してください。
 ・過度に派手、幻想的、ホラー風、コメディ風など、台本の雰囲気と違う表現にしないでください。ただし、台本や個別プロンプトで明確に指定されている場合は除きます。
 
-【画像生成後のファイル名ルール】
-・画像生成が完了したら、生成した各画像のファイル名を、対応するプロンプト内の Save filename の値にしてください。
-・1枚だけ生成する場合は、その1枚のファイル名を Save filename の値にしてください。
-・複数枚をまとめて生成する場合は、各画像と各 Save filename の対応関係を間違えないでください。
-・例：Save filename: IMG001.png の画像は IMG001.png、Save filename: IMG002.png の画像は IMG002.png として扱ってください。
-・画像の中にファイル名や文字を描き込まないでください。
-・ファイル名は、可能であればダウンロード時のファイル名にも反映してください。
+【重要：画像をまとめないルール】
+・今回提示する各Image Groupは、それぞれ必ず1つの独立した画像ファイルとして生成してください。
+・1枚のコラージュ、一覧表、グリッド、コンタクトシート、比較画像、複数パネル画像にまとめないでください。
+・複数のImage Groupがある場合でも、それぞれ別々の画像として生成してください。
+・今回貼り付けたImage Groupの数だけ、別々の独立した画像として生成してください。
+・今回貼り付けたImage Groupが1つなら1枚、2つなら2枚、3つなら3枚を、それぞれ別々の独立した画像として生成してください。
+・もし別々の画像として生成できない場合は、勝手に1枚にまとめず、最初のImage Groupだけを生成してください。
+
+英語補強キーワード：
+Generate each Image Group as one independent image file only. Do not create a collage, grid, contact sheet, comparison sheet, or multi-panel layout.
+
+【Save filename の扱い】
+・各画像プロンプトにある Save filename は、作業者が後で保存名を確認するための管理情報です。
+・画像生成中に、Save filename の文字を画像の中へ描き込まないでください。
+・画像の下、端、余白、ラベル、キャプションとして IMG001.png などの文字を入れないでください。
+・画像内には、ファイル名、字幕、説明文、看板、ラベル、ロゴなど、読める文字を一切入れないでください。
+・ファイル名の付け直しは、画像生成後に別メッセージで依頼します。
+・画像生成の段階では、画像の内容だけを作ってください。
+
+英語補強キーワード：
+No readable text, no captions, no subtitles, no labels, no logos, no filename written inside the image.
 
 【生成時の注意】
 ・1枚の画像には、指定されたシーンに必要な人物・動物・キャラクターだけを入れてください。
 ・台本にいない人物や動物を勝手に増やさないでください。
 ・表情やポーズは、台本の感情に合わせて自然にしてください。
+・介護、病気、老い、悲しみなどの描写は、痛々しくしすぎず、尊厳と温かさを保ってください。
 ・暗い場面や悲しい場面でも、過度に怖くしたり、残酷にしたりしないでください。
 ・画像内に読める文字を絶対に入れないでください。
-・個別の画像プロンプトに書かれている指示を優先してください。ただし、キャラクター固定・画風固定・文字禁止・ファイル名ルールは必ず守ってください。
+・個別の画像プロンプトに書かれている指示を優先してください。ただし、キャラクター固定・画風固定・文字禁止・画像をまとめないルール・Save filenameを画像内に描かないルールは必ず守ってください。
 
-上記のマスター画像の紐付け、キャラクター固定、画風固定、画像生成後のファイル名ルールを厳守し、以下の各画像プロンプトに従って生成してください。
+【運用ルール】
+・原則として1回につき最大3つまでのImage Groupを生成します。
+・重要シーン、人物が切り替わるシーン、時代が切り替わるシーンは、1つずつ生成します。
+・同じ人物、同じ時代、同じ場所の連続シーンであれば、2〜3つまでまとめて生成しても構いません。
 
-（ここに画像プロンプトを貼り付ける）
+上記のマスター画像の紐付け、キャラクター固定、画風固定、画像をまとめないルール、Save filenameを画像内に描かないルールを厳守し、以下に貼り付けるImage Groupだけを画像化してください。
+
+――――――――――
+ここに今回生成したいImage Groupを貼り付けます。
+原則として1回につき最大3つまでのImage Groupを貼ります。
+重要シーン、人物が切り替わるシーン、時代が切り替わるシーンは、1つずつ生成します。
+
+この枠内の説明文や例文は生成対象ではありません。
+実際に貼り付けられたImage Groupのみを生成対象にしてください。
+――――――――――
 ````
 
 Save the story-specific fixed prompt as:
 
 ```text
 public/assets/<story>/prompts/image-generator-fixed-prompt.md
+```
+
+After an image is generated, tell beginners they can send this separate follow-up message to the image generator when they want the download link renamed. Do not include this message inside the image-generation prompt itself:
+
+```text
+Save filenameをファイル名に付けてください。
+画像内にはファイル名を描き込まず、対応する保存名でダウンロード用リンクとして出してください。
 ```
 
 ### Normal Version
