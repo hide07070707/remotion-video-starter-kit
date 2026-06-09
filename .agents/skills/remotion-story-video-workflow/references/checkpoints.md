@@ -263,15 +263,16 @@ Tell beginners to check only the essentials first:
 Rules:
 
 - create prompts by image group, not by individual scene
-- for long projects, output image prompts in batches of 10-20 image groups, such as `001-010`, `011-020`, and `021-030`
-- after each batch, include a brief self-check and wait for user confirmation before continuing to the next batch
-- ask the user to check the prompt batch; do not imply they must generate images before the next prompt batch
-- do not output all image groups at once unless the project is short or the user explicitly asks for a full one-pass output
+- for long projects, first create only 10-20 image groups for user review, such as `001-020`
+- after the first sample batch, ask the user to check style, prompt length, character handling, output format, no-text rules, and subtitle-safe space; do not imply they must generate images before approving the remaining prompts
+- after the user approves the first sample batch, continue the remaining prompts internally in 10-20 image-group chunks; self-check each chunk, fix issues, and save the results to files instead of pasting every prompt batch into chat
+- if the user explicitly asks for a visible batch such as `021-030`, output only that requested range and stop
+- do not treat "create all prompts" as one undivided generation task; even when saving 100-200 prompts at once, process them internally in 10-20 group chunks
+- for 100+ image groups, always create `prompts/image-prompt-check-log.md`; for smaller projects, create it when the user asks or when many fixes are made
 - do not change scene text
 - do not include readable text inside generated images
 - code blocks must contain only the prompt to paste into an external image generator
-- each image prompt must include a clear `Save filename` line as file-management information; do not ask the image generator to rename files during image generation
-- when the user wants the image generator to rename the download link after generation, provide this separate follow-up message: `Save filenameをファイル名に付けてください。画像内にはファイル名を描き込まず、対応する保存名でダウンロード用リンクとして出してください。`
+- each image prompt must include a clear `Save filename` line as file-management information for the user and Codex
 - do not regenerate existing character assets with image AI
 - if existing characters are needed, describe their Remotion placement separately
 - usually output only pattern A; add pattern B only for important scenes or when requested.
@@ -282,7 +283,34 @@ Rules:
 - even for Remotion diagrams, cards, comparison tables, checklists, or text emphasis scenes, create a background/atmosphere prompt with enough empty space for overlays
 - do not leave diagram scenes as blank white backgrounds unless the user explicitly wants that style
 
-After the fixed prompt is approved, save it to `prompts/image-generator-fixed-prompt.md`. After each approved image-prompt batch, save to `prompts/image-groups-001-010.md` style files.
+Chunk self-check items:
+
+- character consistency and correct master-image references
+- time period and age-version consistency
+- location and time-of-day consistency
+- visual style consistency
+- 16:9 / landscape framing when the generator supports it
+- no readable text, captions, logos, labels, or filename inside the image
+- subtitle-safe empty space
+- continuity with previous and next image groups
+- avoidance of repetitive composition or duplicated scene purpose
+- match with the image group's Purpose / story role
+
+Check-log rules:
+
+- For 100+ image groups, save `prompts/image-prompt-check-log.md`.
+- In the check-log, record each processed range, the result of the self-check, and any fixes made.
+- Keep the chat summary short: saved file path, prompt count, check result, notable cautions, and next action.
+
+Pure copy-paste file rules:
+
+- When the user will paste prompts into an external image generator manually, also create a pure copy-paste file such as `prompts/image-prompts-copy-paste-001-100.md`.
+- This file must not contain helper text that the user would need to delete, such as "copy from here", "copy to here", "copy unit", separator lines, generation batch advice, or explanations.
+- Put image groups consecutively in the same clean block format: `Image Group`, `Save filename`, `Reference images`, `Prompt`, and `Purpose`.
+- The user decides whether to copy 1, 2, 3, or more image groups at a time. Do not force copy batch groupings inside the file.
+- Keep any workflow advice, warnings, check-log notes, and next-action guidance outside this pure copy-paste file.
+
+After the fixed prompt is approved, save it to `prompts/image-generator-fixed-prompt.md`. After the first user-approved image-prompt batch, save it to `prompts/image-groups-001-020.md` style files or to the final combined file. For large runs after approval, save the remaining prompts to one combined file such as `prompts/image-group-prompts-001-100.md`, or chapter/range files if that is easier to review.
 
 After outputting the first image-prompt batch for a story, say:
 `まず画像グループ001〜010の画像プロンプトを出しました。確認してください。次の範囲へ進む場合は「011〜020へ進んで」と言ってください。
@@ -300,16 +328,13 @@ CHAR003_MASTER.png
 「画像生成AIに最初に貼る固定プロンプトを出して」
 と言ってください。
 
-画像生成後にファイル名を付け直したい場合は、外部画像生成AIへ次の一文を送ってください。
-
-Save filenameをファイル名に付けてください。
-画像内にはファイル名を描き込まず、対応する保存名でダウンロード用リンクとして出してください。`
+画像生成AIからダウンロードした画像のファイル名が違っていても大丈夫です。あとでCodexが順番や画像IDを確認して整理します。`
 
 After outputting later image-prompt batches, say:
 `画像グループ011〜020の画像プロンプトを出しました。確認してください。次の範囲へ進む場合は「021〜030へ進んで」と言ってください。
 
 画像生成AIで作るときは、先にマスター画像と固定プロンプトを使ってください。
-画像生成後にファイル名を付け直したい場合は、前回と同じ一文を外部画像生成AIへ送ってください。`
+ダウンロードした画像のファイル名が違っていても大丈夫です。あとでCodexが確認して整理します。`
 
 When the user is ready to provide generated images, say:
 `受け取り用フォルダ public/assets/<story>/inbox/images/001-010/ をこちらで作って開きます。外部画像生成AIで作った001〜010の画像だけを、この開いたフォルダへドラッグ＆ドロップしてください。できるだけ IMG001.png、IMG002.png のように分かる名前で保存してください。完全に同じ名前でなくても、IMG001(2).png、IMG001_修正版.png のように画像IDが分かれば大丈夫です。A/B案を両方残す場合は IMG001_A.png、IMG001_B.png のようにしてください。Codexが確認後、最終的なファイル名へ整えます。画像IDが分からない名前のままになっている場合だけ、どのファイルがどの画像IDか分かる簡単なメモを一緒に渡してください。入れ終わったら「001〜010を入れました」と教えてください。Codexが確認して、分からないものだけ質問してから整理します。`
