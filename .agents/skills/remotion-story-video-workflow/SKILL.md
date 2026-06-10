@@ -28,6 +28,7 @@ Use this skill as a production guide for making a new Remotion story video from 
 - Treat text, numbers, tables, citations, and checklists as Remotion work. Do not send these to video AI unless the user explicitly asks.
 - If character consistency matters, create character master prompts after the scene plan/image groups are approved and before image-group prompts. Use the already selected visual style automatically; if no style is selected, ask first. Ask the user to choose the target prompt format from `ChatGPT image2.0`, `Nano Banana Pro`, or `Other`.
 - If API keys are needed, tell the user to put them in `.env` and confirm `.env` is ignored by Git. Never print or commit API keys.
+- When using ElevenLabs for Japanese narration, do not choose a voice only from the account's generic voice list. First search Japanese shared-library voices, create a small voice audition page, and get user approval before generating story audio. Prefer Japanese voices with `language=ja`, `accent=standard`, and `use_case=narrative_story`. For Japanese story narration, start with `eleven_v3` and stable settings such as `stability 0.76-0.88`, `similarity_boost 0.84-0.85`, low `style 0.03-0.14`, and `use_speaker_boost: true`. If a voice is too dark or flat, audition the same voice with "standard / warmer / brighter" variants before switching voices.
 - Prefer adding scenes or overlays over rewriting existing approved scenes.
 
 ## Workflow
@@ -51,27 +52,34 @@ Use this skill as a production guide for making a new Remotion story video from 
    Keep two prompt types separate: (A) a prompt-builder prompt that asks Codex/ChatGPT to create image-generation prompts, and (B) a master-reference fixed prompt that is pasted directly into the external image generator. Use the Japanese-main ChatGPT Image 2.0 prompt-builder template in `references/prompt-templates.md` when drafting new image-group prompts. Before image-group prompts, create a reusable "master reference fixed prompt" for the external image generator whenever character master images or a selected visual style exist. This fixed prompt tells the image generator how uploaded master images map to characters, how to keep character/style consistency, how to avoid text in images, and how to treat each prompt's `Save filename` as file-management information only. Ask the user for any missing mapping details, visual style, image generator name, or whether they will generate one image at a time or in batches; if they do not know, recommend the safest default and explain it briefly.
    Create copyable prompts for external image-generation tools, grouped by approved image group. Do not generate images inside Codex. Use visible prompt-sheet IDs such as `IMG001` or `img_001`; choose one convention per story and keep it stable. For each prompt, include a clear `Save filename: IMG001.png` or matching convention line. Keep scene text unchanged. Do not put readable text inside images. If existing character assets are used, do not regenerate them with image AI; write separate Remotion placement instructions instead. For long projects, first create 10-20 image groups for user review. After the user approves the style, prompt length, character handling, and output format, continue the remaining prompts internally in 10-20 image-group chunks, self-check each chunk, and save the final result to one combined file or chapter/range files instead of flooding the chat. For 100+ image groups, create a `prompts/image-prompt-check-log.md` file; for smaller projects, create one when the user asks or many fixes are made. Save the fixed prompt to `prompts/image-generator-fixed-prompt.md` and prompt outputs to `prompts/image-groups-001-010.md` style files or a combined `prompts/image-group-prompts-001-100.md` style file. Also create a pure copy-paste prompt file when the user will paste prompts into an external image generator manually; this file should contain only consecutive `Image Group`, `Save filename`, `Reference images`, `Prompt`, and `Purpose` blocks, with no "copy from here", "copy to here", batch instructions, separator lines, or explanatory text that the user would need to delete. When the user is ready to provide generated images, create and open the matching batch folder under `inbox/images/`, such as `inbox/images/001-010/`; tell them to put only that range there and rename each chosen image so the ID is recognizable, preferably exactly like `IMG001.png` or `img_001.png`, but acceptable as `IMG001(2).png`, `IMG001_修正版.png`, or similar. Codex should normalize recognizable names to the final file names. If the ID is not recognizable, ask them to add a simple note mapping the random file name to the image ID. Codex should inspect, ask only about unclear mappings, then rename/map and move files to `images/`. Use the normal prompt template for simple projects. Use the detailed prompt template when character consistency, master-image references, A/B variations, Remotion overlay separation, or range-by-range output control matters.
 
-7. Asset Mapping
+7. ElevenLabs Japanese Voice Audition
+   If the user wants ElevenLabs narration, treat voice selection as its own checkpoint before generating production audio. Confirm that `.env` exists, `.env` is ignored by Git, and `ELEVENLABS_API_KEY` is present without printing the key. Search ElevenLabs shared voices with a Japanese filter such as `shared-voices?language=ja`, then shortlist 3-5 voices that are Japanese, standard-accent when possible, and suited to `narrative_story`. Generate a short audition using a representative Japanese sentence from the story or a neutral sample. Save samples under `public/assets/<story>/voice-test/` or a versioned folder such as `voice-test-v2/`, and create an `index.html` page with audio players so beginners can compare voices easily. Do not put the audition audio into the Remotion manifest yet.
+
+   Use `eleven_v3` as the first model to try for Japanese emotional narration. For the first pass, use stable settings close to `stability: 0.88`, `similarity_boost: 0.85`, `style: 0.03`, and `use_speaker_boost: true`. If the chosen voice is too dark, too flat, or too stiff, keep the same voice and create a second audition with warmer/brighter variants, for example `stability: 0.76`, `similarity_boost: 0.84`, `style: 0.14`, `use_speaker_boost: true`, and an optional v3 tag such as `[warmly]` when it improves the result. Only after the user chooses a voice and settings should Codex generate a small 1-3 scene Remotion audio test.
+
+   If the first test sounds like English, foreign-accented Japanese, or unnatural Japanese, stop and explain that the voice/model/search method is wrong. Do not continue generating all scenes. Return to the shared Japanese voice audition step and try better Japanese candidates.
+
+8. Asset Mapping
    After the user provides images/audio, map files to scenes and image groups. Save the mapping to `metadata/asset-map.md`. If audio is missing, use temporary durations or placeholder paths only when the user approves.
 
-8. Manifest Draft
+9. Manifest Draft
    Create the manifest only after the user has approved the previous checkpoints. Keep scene IDs stable. Include scene text, image/audio paths, duration, and optional video path fields.
 
-9. Remotion Preview and Correction
+10. Remotion Preview and Correction
    Start or point the user to the Remotion preview. If the user needs reading-mistake or image replacement support, use the correction tool workflow:
    `npm run tools`
    Then open `http://localhost:3101/`.
 
-10. Handmade Direction
+11. Handmade Direction
    Propose handmade direction before implementing. Reuse the patterns in `references/handmade-patterns.md` and, when available, use the `handmade-video-direction` skill for scene candidate lists. Save proposals to `metadata/handmade-direction.md`. If the user approves implementation, record added overlays, sounds, pauses, video clips, or deleted elements in the production log.
 
-11. Optional Video AI
+12. Optional Video AI
    Ask whether the user wants no video AI, Higgsfield, another video AI, or manual replacement. For video AI, create provider-neutral image-to-video prompts and tell the user which source image, duration, aspect ratio, and motion should be used. Save approved video prompts to `prompts/video-ai-prompts.md`.
 
-12. Final Render
+13. Final Render
    Before rendering, check for missing media and suspicious video files. For long videos, chunked rendering and concatenation is acceptable. Report the output path clearly.
 
-13. YouTube Publishing Draft
+14. YouTube Publishing Draft
    After the final video timing is known, use the supplemental notes and the recorded production changes to create a copy-ready YouTube description, corrected chapters, source/reference section, hashtags, and separate YouTube Studio tag candidates. Read `references/production-log.md` if the production history is scattered across the chat or files. Include only what the finished video actually covers. Do not invent URLs, sources, or claims. If exact timestamps are not known, create a timestamp confirmation checklist first and ask the user to fill in the actual times before writing the final copy.
 
 ## User Prompts to Recommend
