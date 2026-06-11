@@ -29,6 +29,7 @@ Use this skill as a production guide for making a new Remotion story video from 
 - If character consistency matters, create character master prompts after the scene plan/image groups are approved and before image-group prompts. Use the already selected visual style automatically; if no style is selected, ask first. Ask the user to choose the target prompt format from `ChatGPT image2.0`, `Nano Banana Pro`, or `Other`.
 - If API keys are needed, tell the user to put them in `.env` and confirm `.env` is ignored by Git. Never print or commit API keys.
 - When using ElevenLabs for Japanese narration, do not choose a voice only from the account's generic voice list. First search Japanese shared-library voices, create a small voice audition page, and get user approval before generating story audio. Prefer Japanese voices with `language=ja`, `accent=standard`, and `use_case=narrative_story`. For Japanese story narration, start with `eleven_v3` and stable settings such as `stability 0.76-0.88`, `similarity_boost 0.84-0.85`, low `style 0.03-0.14`, and `use_speaker_boost: true`. If a voice is too dark or flat, audition the same voice with "standard / warmer / brighter" variants before switching voices.
+- For Remotion still-image motion, default to a calm Ken Burns style like the approved Washoku story: group consecutive scenes using the same image, animate the image for the full visual-group duration, and cycle one-direction motion types such as `slowZoom`, `panLeft`, `panRight`, `kenBurns`, and `zoomOut`. Do not reset motion at each subtitle, do not use back-and-forth pulsing zoom, and do not stop motion halfway through a long image group unless the user explicitly asks for a static hold.
 - Prefer adding scenes or overlays over rewriting existing approved scenes.
 
 ## Workflow
@@ -66,7 +67,7 @@ Use this skill as a production guide for making a new Remotion story video from 
    Create the manifest only after the user has approved the previous checkpoints. Keep scene IDs stable. Include scene text, image/audio paths, duration, and optional video path fields.
 
 10. Remotion Preview and Correction
-   Start or point the user to the Remotion preview. If the user needs reading-mistake or image replacement support, use the correction tool workflow:
+   Start or point the user to the Remotion preview. Ask the user to check image motion as well as text and audio. If still images feel static, jittery, or distracting, first adjust the shared Remotion image-motion layer rather than changing image prompts or regenerating images. The default fix is the approved Washoku-style Ken Burns approach: one visual group per consecutive shared image, continuous one-direction motion across the full group, and a cycle of calm motion variants (`slowZoom`, `panLeft`, `panRight`, `kenBurns`, `zoomOut`). Avoid repeated expand/shrink motion inside the same image and avoid motion that ends early while the image remains on screen. If the user needs reading-mistake or image replacement support, use the correction tool workflow:
    `npm run tools`
    Then open `http://localhost:3101/`.
 

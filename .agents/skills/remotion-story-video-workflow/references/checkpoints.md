@@ -371,9 +371,12 @@ Tell the user exactly what to check:
 - Does each scene appear in the right order?
 - Is the text readable?
 - Are image changes natural?
+- Does still-image motion feel natural: no subtitle-by-subtitle reset, no repeated expand/shrink pulsing, no motion stopping halfway through a long image group?
 - Are reading mistakes present?
 - Does audio continue without gaps?
 - Are hand-made overlays too busy or too small?
+
+Default still-image motion should follow the approved Washoku-story style: group consecutive scenes that share the same image, animate the visual group for its full duration, and cycle calm one-direction effects such as `slowZoom`, `panLeft`, `panRight`, `kenBurns`, and `zoomOut`. Adjust the shared Remotion motion layer before asking the user to regenerate images.
 
 When correction UI is available, launch or point to:
 
