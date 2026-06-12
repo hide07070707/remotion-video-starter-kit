@@ -5,169 +5,791 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Story Video 修正ツール</title>
     <style>
+      :root {
+        color-scheme: light;
+        --ink: #252018;
+        --muted: #6d6258;
+        --line: #ddd2c2;
+        --paper: #fbf6ea;
+        --accent: #7d5632;
+        --good: #4f7d4b;
+      }
       body {
         margin: 0;
-        font-family: system-ui, sans-serif;
-        background: #f7f3ea;
-        color: #2b261f;
+        font-family: "Yu Gothic", "Hiragino Sans", Meiryo, system-ui, sans-serif;
+        background: #f4efe6;
+        color: var(--ink);
       }
       header {
-        padding: 18px 24px;
-        background: #2b251d;
-        color: white;
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        padding: 14px 22px;
+        background: #2b241c;
+        color: #fff8ea;
         display: flex;
-        justify-content: space-between;
         align-items: center;
-      }
-      main {
-        display: grid;
-        grid-template-columns: 360px 1fr;
         gap: 18px;
-        padding: 18px;
+        box-shadow: 0 2px 14px rgba(0, 0, 0, 0.18);
+      }
+      h1 {
+        font-size: 20px;
+        margin: 0;
+      }
+      nav {
+        display: flex;
+        gap: 8px;
+        margin-left: auto;
       }
       button,
       input,
-      textarea {
+      textarea,
+      select {
         font: inherit;
       }
-      button {
+      nav button,
+      .primary {
         border: 0;
-        background: #6c4c32;
+        border-radius: 4px;
+        padding: 9px 13px;
+        background: #8a633b;
         color: white;
-        padding: 10px 14px;
-        border-radius: 6px;
-        cursor: pointer;
         font-weight: 700;
+        cursor: pointer;
       }
-      .list,
-      .editor {
+      nav button.secondary,
+      .ghost {
+        border: 1px solid #b9aa96;
+        border-radius: 4px;
+        padding: 9px 12px;
         background: #fffaf0;
-        border: 1px solid #d6c8b4;
-        border-radius: 8px;
-        padding: 14px;
-      }
-      .scene {
-        padding: 12px;
-        border-bottom: 1px solid #e4d7c4;
+        color: #3b3128;
         cursor: pointer;
-      }
-      .scene.active {
-        background: #efe2c8;
-      }
-      label {
-        display: block;
-        margin: 14px 0 6px;
         font-weight: 700;
+      }
+      main {
+        display: grid;
+        grid-template-columns: 430px 1fr;
+        gap: 18px;
+        padding: 18px;
+      }
+      aside,
+      section.panel {
+        background: rgba(255, 252, 245, 0.92);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        box-shadow: 0 8px 22px rgba(60, 43, 26, 0.08);
+      }
+      aside {
+        overflow: hidden;
+      }
+      .toolbar {
+        padding: 14px;
+        border-bottom: 1px solid var(--line);
+        display: grid;
+        gap: 10px;
       }
       input,
-      textarea {
-        box-sizing: border-box;
+      textarea,
+      select {
         width: 100%;
-        border: 1px solid #c8b89f;
-        border-radius: 6px;
-        padding: 10px;
-        background: white;
+        box-sizing: border-box;
+        border: 1px solid #cdbfae;
+        border-radius: 4px;
+        padding: 10px 11px;
+        background: #fffdf8;
+        color: var(--ink);
       }
       textarea {
-        min-height: 130px;
+        min-height: 140px;
+        resize: vertical;
+        line-height: 1.7;
       }
-      .hint {
-        color: #736856;
+      .scene-list {
+        max-height: calc(100vh - 165px);
+        overflow: auto;
+      }
+      .scene-row {
+        padding: 11px 14px;
+        border-bottom: 1px solid #ece2d4;
+        cursor: pointer;
+        display: grid;
+        gap: 5px;
+      }
+      .scene-row:hover {
+        background: #fff8e9;
+      }
+      .scene-row.active {
+        background: #efe2c9;
+      }
+      .scene-meta {
+        display: flex;
+        gap: 8px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .scene-title {
+        font-weight: 800;
         font-size: 14px;
+        white-space: pre-wrap;
+      }
+      .scene-sub {
+        color: #4c443c;
+        font-size: 13px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .panel {
+        padding: 18px;
+      }
+      .tabs {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 14px;
+      }
+      .tabs button {
+        border: 1px solid var(--line);
+        background: #fffaf0;
+        border-radius: 4px;
+        padding: 10px 12px;
+        cursor: pointer;
+        font-weight: 800;
+      }
+      .tabs button.active {
+        background: #2b241c;
+        color: #fff8ea;
+      }
+      .grid2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 14px;
+        background: #fffdf8;
+      }
+      .label {
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 800;
+        margin-bottom: 6px;
+      }
+      .preview {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        background: #ddd;
+        border: 1px solid #d8cab8;
+        border-radius: 4px;
+      }
+      audio {
+        width: 100%;
+        margin-top: 10px;
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 12px;
+      }
+      .danger {
+        background: #8c3f32;
+        color: #fff;
+        border-color: #8c3f32;
+      }
+      .drop-zone {
+        border: 2px dashed #cdbfae;
+        border-radius: 6px;
+        padding: 14px;
+        background: #fffaf0;
+        display: grid;
+        gap: 10px;
+        justify-items: start;
+        transition:
+          border-color 0.16s ease,
+          background 0.16s ease;
+      }
+      .drop-zone.dragging {
+        border-color: #8a633b;
+        background: #f3e5cc;
+      }
+      .status {
+        margin-top: 12px;
+        color: var(--good);
+        font-weight: 800;
+        min-height: 1.4em;
+        white-space: pre-wrap;
+      }
+      .image-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 12px;
+        max-height: 560px;
+        overflow: auto;
+        padding-right: 4px;
+      }
+      .image-tile {
+        border: 1px solid var(--line);
+        border-radius: 5px;
+        background: #fffdf8;
+        padding: 8px;
+        cursor: pointer;
+      }
+      .image-tile:hover,
+      .image-tile.selected {
+        outline: 3px solid rgba(138, 99, 59, 0.25);
+      }
+      .image-tile img {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        border-radius: 3px;
+        background: #ddd;
+      }
+      .image-tile video,
+      video.preview {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        border-radius: 3px;
+        background: #ddd;
+      }
+      .small {
+        font-size: 12px;
+        color: var(--muted);
+        word-break: break-all;
+      }
+      .hidden {
+        display: none;
+      }
+      @media (max-width: 1000px) {
+        main,
+        .grid2 {
+          grid-template-columns: 1fr;
+        }
+        .scene-list {
+          max-height: 360px;
+        }
       }
     </style>
   </head>
   <body>
     <header>
-      <strong>Story Video 修正ツール</strong>
-      <button id="save">保存</button>
+      <h1>Story Video 修正ツール</h1>
+      <span class="small" id="count">読み込み中...</span>
+      <nav>
+        <button class="secondary" onclick="location.reload()">再読み込み</button>
+        <button onclick="window.open('http://localhost:3000/StoryVideo','_blank')">Remotionを開く</button>
+      </nav>
     </header>
     <main>
-      <section class="list" id="list"></section>
-      <section class="editor">
-        <p class="hint">
-          サンプルmanifestを直接編集します。実プロジェクトでは、この形をもとに読み間違い修正や画像差し替え用UIを拡張してください。
-        </p>
-        <label>Scene ID</label>
-        <input id="id" />
-        <label>Subtitle</label>
-        <textarea id="subtitle"></textarea>
-        <label>Image path</label>
-        <input id="image" />
-        <label>Audio path</label>
-        <input id="audio" />
-        <label>Video path</label>
-        <input id="video" />
-        <label>Duration in frames</label>
-        <input id="duration" type="number" />
+      <aside>
+        <div class="toolbar">
+          <input id="filter" placeholder="シーンID・字幕で検索" />
+          <select id="mode">
+            <option value="all">すべてのシーン</option>
+            <option value="with-audio">音声あり</option>
+            <option value="without-audio">音声なし</option>
+          </select>
+        </div>
+        <div id="sceneList" class="scene-list"></div>
+      </aside>
+      <section class="panel">
+        <div class="tabs">
+          <button id="tabReading" class="active">読み間違い・字幕修正</button>
+          <button id="tabDictionary">読み辞書・一括修正</button>
+          <button id="tabImage">画像・動画差し替え</button>
+        </div>
+        <div id="empty">左からシーンを選んでください。</div>
+
+        <div id="readingPane" class="hidden">
+          <div class="grid2">
+            <div class="card">
+              <div class="label">現在の画像・動画と音声</div>
+              <img id="sceneImage" class="preview" />
+              <video id="sceneVideo" class="preview hidden" controls muted playsinline></video>
+              <audio id="sceneAudio" controls></audio>
+              <div class="small" id="sceneInfo"></div>
+            </div>
+            <div class="card">
+              <div class="label">字幕修正</div>
+              <textarea id="subtitleText"></textarea>
+              <div class="actions">
+                <button class="ghost" id="saveSubtitle">字幕を保存</button>
+                <button class="ghost danger" id="regenScene">このシーンの音声を再生成</button>
+              </div>
+              <div class="status" id="readingStatus"></div>
+            </div>
+          </div>
+          <div class="card" style="margin-top: 16px">
+            <div class="label">初心者向けメモ</div>
+            <div class="small">
+              読み間違いを直す場合は、まず字幕を直して保存してください。
+              その後で「このシーンの音声を再生成」を押すと、この1シーンだけElevenLabsで作り直します。
+              APIキーは画面には表示されません。
+            </div>
+          </div>
+        </div>
+
+        <div id="dictionaryPane" class="hidden">
+          <div class="grid2">
+            <div class="card">
+              <div class="label">読み間違いのルールを作る</div>
+              <p class="small">
+                字幕の漢字はそのまま残し、音声生成に渡す読みだけを置き換えます。
+                保存場所を選んでから「この読み方を保存」を押すと、読み辞書に登録されます。
+                その後、同じ表記が出てくるシーンをまとめて探せます。
+              </p>
+              <label class="label">間違って読まれる表記</label>
+              <input id="ruleFrom" placeholder="例：十数年前" />
+              <label class="label">読ませたい表記</label>
+              <input id="ruleTo" placeholder="例：じゅうすうねんまえ" />
+              <label class="label">この読み方を保存する場所</label>
+              <select id="ruleScope">
+                <option value="story">今回の台本だけ</option>
+                <option value="shared" selected>今後の台本にも引き継ぐ共通辞書</option>
+              </select>
+              <div class="actions">
+                <button class="ghost" id="findRuleMatches">該当シーンを探す</button>
+                <button class="ghost" id="saveRule">この読み方を保存</button>
+                <button class="ghost danger" id="regenRuleMatches">該当シーンの音声をまとめて再生成</button>
+              </div>
+              <div class="status" id="dictionaryStatus"></div>
+            </div>
+            <div class="card">
+              <div class="label">該当シーン</div>
+              <div id="ruleMatches" class="scene-list" style="max-height: 420px"></div>
+            </div>
+          </div>
+          <div class="grid2" style="margin-top: 16px">
+            <div class="card">
+              <div class="label">今回の台本だけの読み辞書</div>
+              <div id="storyRules" class="small"></div>
+            </div>
+            <div class="card">
+              <div class="label">今後にも引き継ぐ共通読み辞書</div>
+              <div id="sharedRules" class="small"></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="imagePane" class="hidden">
+          <div class="grid2">
+            <div class="card">
+              <div class="label">選択中シーンの画像・動画</div>
+              <img id="assignPreview" class="preview" />
+              <video id="assignVideo" class="preview hidden" controls muted playsinline></video>
+              <div class="small" id="assignInfo"></div>
+              <div id="dropZone" class="drop-zone">
+                <div class="small">ここに画像・動画をドラッグ＆ドロップできます。</div>
+                <div class="actions" style="margin-top: 0">
+                  <label class="ghost">
+                    ファイルを選んでアップロード
+                    <input id="upload" type="file" accept="image/*,video/mp4,video/webm,video/quicktime" hidden />
+                  </label>
+                </div>
+              </div>
+              <div class="actions">
+                <button class="ghost" id="assignOne">このシーンだけ差し替え</button>
+                <button class="ghost" id="assignGroup">同じ素材グループをまとめて差し替え</button>
+              </div>
+              <div class="status" id="imageStatus"></div>
+            </div>
+            <div class="card">
+              <div class="label">素材ライブラリ</div>
+              <input id="imageFilter" placeholder="画像名・動画名で検索" style="margin-bottom: 10px" />
+              <div id="imageGrid" class="image-grid"></div>
+            </div>
+          </div>
+        </div>
       </section>
     </main>
     <script>
-      let manifest = [];
-      let selected = 0;
-      const fields = ['id', 'subtitle', 'image', 'audio', 'video', 'duration'];
+      let scenes = [];
+      let images = [];
+      let videos = [];
+      let pronunciationRules = { story: { words: {} }, shared: { words: {} } };
+      let currentRuleMatches = [];
+      let editingRule = null;
+      let selected = null;
+      let selectedImage = null;
+      const $ = (id) => document.getElementById(id);
+      const asset = (p) => '/asset/' + p + '?v=' + Date.now();
+      const isVideoPath = (p) => /\.(mp4|webm|mov)$/i.test(String(p || ''));
+      const sceneMedia = (scene) => scene?.video || scene?.image || '';
+      const setMediaPreview = (imageId, videoId, mediaPath) => {
+        const imageEl = $(imageId);
+        const videoEl = $(videoId);
+        if (isVideoPath(mediaPath)) {
+          imageEl.classList.add('hidden');
+          imageEl.removeAttribute('src');
+          videoEl.classList.remove('hidden');
+          videoEl.src = asset(mediaPath);
+        } else {
+          videoEl.pause();
+          videoEl.classList.add('hidden');
+          videoEl.removeAttribute('src');
+          imageEl.classList.remove('hidden');
+          imageEl.src = mediaPath ? asset(mediaPath) : '';
+        }
+      };
+      const short = (s) => (s || '').replace(/\n/g, ' ').slice(0, 90);
+      const escapeHtml = (text) =>
+        String(text || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
 
-      const render = () => {
-        document.getElementById('list').innerHTML = manifest
+      async function api(path, options) {
+        const res = await fetch(path, options);
+        if (!res.ok) {
+          let message = await res.text();
+          try {
+            message = JSON.parse(message).error || message;
+          } catch {}
+          throw new Error(message);
+        }
+        return res.json();
+      }
+
+      async function load() {
+        const info = await api('/api/info');
+        [scenes, images, videos, pronunciationRules] = await Promise.all([
+          api('/api/scenes'),
+          api('/api/images'),
+          api('/api/videos'),
+          api('/api/pronunciation-rules'),
+        ]);
+        images = [...images, ...videos];
+        $('count').textContent = `${info.storySlug} / ${scenes.length} scenes / ${images.length} media`;
+        renderScenes();
+        renderImages();
+        renderRules();
+      }
+
+      function renderScenes() {
+        const q = $('filter').value.trim().toLowerCase();
+        const mode = $('mode').value;
+        const list = scenes.filter((s) => {
+          if (mode === 'with-audio' && !s.audio) return false;
+          if (mode === 'without-audio' && s.audio) return false;
+          if (!q) return true;
+          return (s.id + ' ' + (s.subtitle || '')).toLowerCase().includes(q);
+        });
+        $('sceneList').innerHTML = list
           .map(
-            (scene, index) =>
-              `<div class="scene ${index === selected ? 'active' : ''}" data-index="${index}">
-                <strong>${scene.id}</strong><br>${scene.subtitle || ''}
-              </div>`,
+            (s) => `<div class="scene-row ${selected?.id === s.id ? 'active' : ''}" data-id="${s.id}">
+              <div class="scene-meta"><span>${s.id}</span><span>${s.durationInFrames || 0}fr</span><span>${s.audio ? '音声あり' : '音声なし'}</span></div>
+              <div class="scene-title">${s.subtitle || ''}</div>
+              <div class="scene-sub">${sceneMedia(s)}</div>
+            </div>`,
           )
           .join('');
-        document.querySelectorAll('.scene').forEach((el) => {
-          el.addEventListener('click', () => {
-            selected = Number(el.dataset.index);
-            render();
-          });
+        document.querySelectorAll('.scene-row').forEach((el) => {
+          el.onclick = () => selectScene(el.dataset.id);
         });
-        const scene = manifest[selected] || {};
-        document.getElementById('id').value = scene.id || '';
-        document.getElementById('subtitle').value = scene.subtitle || '';
-        document.getElementById('image').value = scene.image || '';
-        document.getElementById('audio').value = scene.audio || '';
-        document.getElementById('video').value = scene.video || '';
-        document.getElementById('duration').value = scene.durationInFrames || 90;
+      }
+
+      function renderImages() {
+        const q = $('imageFilter').value.trim().toLowerCase();
+        const imageList = images.filter((img) => img.toLowerCase().includes(q));
+        $('imageGrid').innerHTML = imageList
+          .map(
+            (img) => `<div class="image-tile ${selectedImage === img ? 'selected' : ''}" data-img="${img}">
+              ${
+                isVideoPath(img)
+                  ? `<video src="${asset(img)}" muted playsinline></video>`
+                  : `<img src="${asset(img)}">`
+              }
+              <div class="small">${img.split('/').pop()}</div>
+            </div>`,
+          )
+          .join('');
+        document.querySelectorAll('.image-tile').forEach((el) => {
+          el.onclick = () => {
+            selectedImage = el.dataset.img;
+            setMediaPreview('assignPreview', 'assignVideo', selectedImage);
+            $('imageStatus').textContent = '選択中: ' + selectedImage.split('/').pop();
+            renderImages();
+          };
+        });
+      }
+
+      function selectScene(id) {
+        selected = scenes.find((s) => s.id === id);
+        if (!selected) return;
+        const mediaPath = sceneMedia(selected);
+        selectedImage = mediaPath || null;
+        $('empty').classList.add('hidden');
+        setMediaPreview('sceneImage', 'sceneVideo', mediaPath);
+        $('sceneAudio').src = selected.audio ? asset(selected.audio) : '';
+        $('sceneInfo').textContent = `${selected.id} / ${mediaPath || '素材なし'} / ${selected.audio || '音声なし'}`;
+        $('subtitleText').value = selected.subtitle || '';
+        setMediaPreview('assignPreview', 'assignVideo', mediaPath);
+        $('assignInfo').textContent = `${selected.id} / 現在: ${mediaPath || '素材なし'}`;
+        showTab(
+          $('tabImage').classList.contains('active')
+            ? 'image'
+            : $('tabDictionary').classList.contains('active')
+              ? 'dictionary'
+              : 'reading',
+        );
+        renderScenes();
+        renderImages();
+      }
+
+      function showTab(name) {
+        $('tabReading').classList.toggle('active', name === 'reading');
+        $('tabDictionary').classList.toggle('active', name === 'dictionary');
+        $('tabImage').classList.toggle('active', name === 'image');
+        $('readingPane').classList.toggle('hidden', name !== 'reading' || !selected);
+        $('dictionaryPane').classList.toggle('hidden', name !== 'dictionary');
+        $('imagePane').classList.toggle('hidden', name !== 'image' || !selected);
+        $('empty').classList.toggle('hidden', !!selected || name === 'dictionary');
+      }
+
+      function renderRules() {
+        const render = (scope, rules) => {
+          const entries = Object.entries(rules?.words || {});
+          if (entries.length === 0) return 'まだ登録はありません。';
+          return entries
+            .map(
+              ([from, to]) => `<div style="display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;margin-bottom:8px;border-bottom:1px solid #ece2d4;padding-bottom:8px">
+                <div><strong>${escapeHtml(from)}</strong> → ${escapeHtml(to)}</div>
+                <div class="actions" style="margin-top:0">
+                  <button class="ghost" onclick="editRule('${scope}', '${encodeURIComponent(from)}')">編集</button>
+                  <button class="ghost danger" onclick="deleteRuleFromList('${scope}', '${encodeURIComponent(from)}')">削除</button>
+                </div>
+              </div>`,
+            )
+            .join('');
+        };
+        $('storyRules').innerHTML = render('story', pronunciationRules.story);
+        $('sharedRules').innerHTML = render('shared', pronunciationRules.shared);
+      }
+
+      window.editRule = (scope, encodedFrom) => {
+        const from = decodeURIComponent(encodedFrom);
+        const rules = scope === 'shared' ? pronunciationRules.shared : pronunciationRules.story;
+        editingRule = { scope, from };
+        $('ruleFrom').value = from;
+        $('ruleTo').value = rules?.words?.[from] || '';
+        $('ruleScope').value = scope;
+        $('dictionaryStatus').textContent = '編集欄に読み辞書を読み込みました。修正したら「この読み方を保存」を押してください。';
       };
 
-      const applyFields = () => {
-        const scene = manifest[selected];
-        if (!scene) return;
-        scene.id = document.getElementById('id').value;
-        scene.subtitle = document.getElementById('subtitle').value;
-        scene.image = document.getElementById('image').value;
-        scene.audio = document.getElementById('audio').value;
-        scene.video = document.getElementById('video').value;
-        scene.durationInFrames = Number(document.getElementById('duration').value || 90);
+      window.deleteRuleFromList = async (scope, encodedFrom) => {
+        const from = decodeURIComponent(encodedFrom);
+        const label = scope === 'shared' ? '共通読み辞書' : '今回の台本だけの読み辞書';
+        if (!confirm(`${label}から「${from}」を削除します。よろしいですか？`)) return;
+        await api('/api/pronunciation-rule', {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ scope, from }),
+        });
+        pronunciationRules = await api('/api/pronunciation-rules');
+        renderRules();
+        $('dictionaryStatus').textContent = `${label}から削除しました。今後の音声生成にはこの読み置き換えは使われません。`;
       };
 
-      fields.forEach((id) => {
-        document.addEventListener('input', (event) => {
-          if (event.target && event.target.id === id) {
-            applyFields();
-            document.getElementById('list').querySelectorAll('.scene')[selected].innerHTML =
-              `<strong>${manifest[selected].id}</strong><br>${manifest[selected].subtitle || ''}`;
-          }
+      function renderRuleMatches() {
+        if (currentRuleMatches.length === 0) {
+          $('ruleMatches').innerHTML = '<div class="small">該当シーンはまだありません。</div>';
+          return;
+        }
+        $('ruleMatches').innerHTML = currentRuleMatches
+          .map(
+            (scene) => `<div class="scene-row" data-id="${scene.id}">
+              <div class="scene-meta"><span>${scene.id}</span><span>${scene.audio ? '音声あり' : '音声なし'}</span></div>
+              <div class="scene-title">${scene.subtitle || ''}</div>
+            </div>`,
+          )
+          .join('');
+        document.querySelectorAll('#ruleMatches .scene-row').forEach((el) => {
+          el.onclick = () => selectScene(el.dataset.id);
         });
-      });
+      }
 
-      document.getElementById('save').addEventListener('click', async () => {
-        applyFields();
-        await fetch('/api/manifest', {
+      async function saveManifest() {
+        await api('/api/scenes', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(manifest),
+          body: JSON.stringify(scenes),
         });
-        alert('保存しました');
-      });
+      }
 
-      fetch('/api/manifest')
-        .then((res) => res.json())
-        .then((data) => {
-          manifest = data;
-          render();
+      $('filter').oninput = renderScenes;
+      $('mode').onchange = renderScenes;
+      $('imageFilter').oninput = renderImages;
+      $('tabReading').onclick = () => showTab('reading');
+      $('tabDictionary').onclick = () => showTab('dictionary');
+      $('tabImage').onclick = () => showTab('image');
+
+      $('saveSubtitle').onclick = async () => {
+        if (!selected) return;
+        selected.subtitle = $('subtitleText').value;
+        await saveManifest();
+        $('readingStatus').textContent = '字幕を保存しました。音声も直す場合は、このシーンの音声を再生成してください。';
+        renderScenes();
+      };
+
+      $('regenScene').onclick = async () => {
+        if (!selected) return;
+        if (!confirm(`${selected.id} の音声をElevenLabsで再生成します。よろしいですか？`)) return;
+        $('readingStatus').textContent = '音声を再生成中です...';
+        try {
+          const result = await api('/api/regenerate-audio', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ sceneId: selected.id }),
+          });
+          scenes = await api('/api/scenes');
+          selectScene(selected.id);
+          $('readingStatus').textContent = result.ok ? '音声を再生成しました。Remotionを更新して確認してください。' : '音声再生成に失敗しました。';
+        } catch (error) {
+          $('readingStatus').textContent = '音声再生成に失敗しました。\n' + error.message;
+        }
+      };
+
+      $('findRuleMatches').onclick = async () => {
+        const from = $('ruleFrom').value.trim();
+        if (!from) {
+          $('dictionaryStatus').textContent = '間違って読まれる表記を入力してください。';
+          return;
+        }
+        currentRuleMatches = await api('/api/pronunciation-matches?from=' + encodeURIComponent(from));
+        renderRuleMatches();
+        $('dictionaryStatus').textContent = `${currentRuleMatches.length}シーン見つかりました。`;
+      };
+
+      $('saveRule').onclick = async () => {
+        const from = $('ruleFrom').value.trim();
+        const to = $('ruleTo').value.trim();
+        const scope = $('ruleScope').value;
+        if (!from || !to) {
+          $('dictionaryStatus').textContent = '表記と読ませたい表記の両方を入力してください。';
+          return;
+        }
+        const isEditingSameScope = editingRule && editingRule.scope === scope;
+        const result = await api('/api/pronunciation-rule', {
+          method: isEditingSameScope ? 'PUT' : 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            scope,
+            oldFrom: isEditingSameScope ? editingRule.from : from,
+            from,
+            to,
+          }),
         });
+        editingRule = null;
+        pronunciationRules = await api('/api/pronunciation-rules');
+        currentRuleMatches = await api('/api/pronunciation-matches?from=' + encodeURIComponent(from));
+        renderRules();
+        renderRuleMatches();
+        $('dictionaryStatus').textContent =
+          `${scope === 'shared' ? '共通辞書' : '今回の台本用辞書'}に保存しました。該当シーン: ${result.matches.length}件`;
+      };
+
+      $('regenRuleMatches').onclick = async () => {
+        const from = $('ruleFrom').value.trim();
+        if (!from) {
+          $('dictionaryStatus').textContent = '先に該当シーンを探してください。';
+          return;
+        }
+        if (currentRuleMatches.length === 0) {
+          currentRuleMatches = await api('/api/pronunciation-matches?from=' + encodeURIComponent(from));
+          renderRuleMatches();
+        }
+        if (currentRuleMatches.length === 0) {
+          $('dictionaryStatus').textContent = '該当シーンがありません。';
+          return;
+        }
+        if (!confirm(`${currentRuleMatches.length}シーンの音声をまとめて再生成します。よろしいですか？`)) return;
+        $('dictionaryStatus').textContent = 'まとめて音声を再生成中です...';
+        try {
+          const result = await api('/api/regenerate-audio-bulk', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ sceneIds: currentRuleMatches.map((scene) => scene.id) }),
+          });
+          scenes = await api('/api/scenes');
+          renderScenes();
+          $('dictionaryStatus').textContent = result.ok
+            ? `${result.results.length}シーンの音声を再生成しました。Remotionを更新して確認してください。`
+            : '一部の音声再生成に失敗しました。';
+        } catch (error) {
+          $('dictionaryStatus').textContent = 'まとめて音声再生成に失敗しました。\n' + error.message;
+        }
+      };
+
+      async function assignImage(applyToGroup) {
+        if (!selected || !selectedImage) return;
+        const result = await api('/api/assign-image', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ sceneId: selected.id, media: selectedImage, applyToGroup }),
+        });
+        scenes = await api('/api/scenes');
+        selectScene(selected.id);
+        $('imageStatus').textContent = applyToGroup
+          ? `${result.count}シーンの画像グループを差し替えました。`
+          : 'このシーンだけ画像を差し替えました。';
+      }
+
+      $('assignOne').onclick = () => assignImage(false);
+      $('assignGroup').onclick = () => assignImage(true);
+
+      async function uploadMediaFile(file) {
+        if (!file) return;
+        if (!file.type.startsWith('image/') && !file.type.startsWith('video/')) {
+          $('imageStatus').textContent = '画像または動画ファイルを選んでください。';
+          return;
+        }
+        $('imageStatus').textContent = 'アップロード中です...';
+        const dataUrl = await new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.readAsDataURL(file);
+        });
+        const result = await api('/api/upload-image', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: file.name, dataUrl }),
+        });
+        const loadedImages = await api('/api/images');
+        const loadedVideos = await api('/api/videos');
+        images = [...loadedImages, ...loadedVideos];
+        selectedImage = result.path;
+        setMediaPreview('assignPreview', 'assignVideo', selectedImage);
+        $('imageStatus').textContent = 'アップロードしました。必要なら差し替えボタンを押してください。';
+        renderImages();
+      }
+
+      $('upload').onchange = async (event) => {
+        const file = event.target.files[0];
+        await uploadMediaFile(file);
+        event.target.value = '';
+      };
+
+      $('dropZone').ondragover = (event) => {
+        event.preventDefault();
+        $('dropZone').classList.add('dragging');
+      };
+      $('dropZone').ondragleave = () => {
+        $('dropZone').classList.remove('dragging');
+      };
+      $('dropZone').ondrop = async (event) => {
+        event.preventDefault();
+        $('dropZone').classList.remove('dragging');
+        const file = event.dataTransfer.files[0];
+        await uploadMediaFile(file);
+      };
+
+      load().catch((error) => alert(error.message));
     </script>
   </body>
 </html>

@@ -384,6 +384,18 @@ When correction UI is available, launch or point to:
 
 `http://localhost:3101/`
 
+Do not treat the correction UI as optional after production audio is in place. Once Remotion preview is ready, make the correction UI the next normal checkpoint before handmade direction, optional video AI, final render, or YouTube publishing. Tell the user that this site is for:
+
+- reading mistakes and one-scene audio regeneration
+- subtitle corrections
+- bulk pronunciation dictionary rules, including shared rules for future scripts
+- image replacement
+- video replacement when supported by the project
+
+Beginner-friendly wording:
+
+`Remotionプレビューの確認ができました。次は、読み間違い・字幕・画像や動画の差し替えをまとめて直せる修正サイトを開きます。ここで直してから、手作り演出や書き出しへ進む方が安全です。`
+
 ## 10. Handmade Direction Check
 
 Do not implement immediately. Output candidates with:
