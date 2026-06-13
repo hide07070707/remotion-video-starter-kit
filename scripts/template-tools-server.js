@@ -7,7 +7,16 @@ const PORT = Number(process.env.PORT || 3101);
 const HOST = '127.0.0.1';
 const ROOT = path.resolve(__dirname, '..');
 const PUBLIC_DIR = path.join(ROOT, 'public');
-const storySlug = process.env.STORY_SLUG || 'sample-story';
+
+const detectStorySlugFromRoot = () => {
+  const rootFile = path.join(ROOT, 'src', 'Root.tsx');
+  if (!fs.existsSync(rootFile)) return undefined;
+  const source = fs.readFileSync(rootFile, 'utf8');
+  const match = source.match(/manifestPath:\s*['"]assets\/([^/'"]+)\/(?:manifest|manifest\.sample)\.json['"]/);
+  return match?.[1];
+};
+
+const storySlug = process.env.STORY_SLUG || detectStorySlugFromRoot() || 'sample-story';
 const STORY_DIR = path.join(PUBLIC_DIR, 'assets', storySlug);
 const MANIFEST = process.env.MANIFEST_PATH
   ? path.resolve(ROOT, process.env.MANIFEST_PATH)
@@ -21,6 +30,7 @@ const METADATA_DIR = path.join(STORY_DIR, 'metadata');
 const SHARED_DIR = path.join(PUBLIC_DIR, 'assets', 'shared');
 const STORY_RULES = path.join(METADATA_DIR, 'pronunciation-rules.json');
 const SHARED_RULES = path.join(SHARED_DIR, 'pronunciation-rules.json');
+const SHARED_RULE_BACKUP_DIR = path.join(SHARED_DIR, 'pronunciation-backups');
 const UI = path.join(__dirname, 'template-tools-ui.html');
 const MAX_BODY_BYTES = 220 * 1024 * 1024;
 
@@ -29,6 +39,7 @@ fs.mkdirSync(AUDIO_DIR, { recursive: true });
 fs.mkdirSync(VIDEOS_DIR, { recursive: true });
 fs.mkdirSync(METADATA_DIR, { recursive: true });
 fs.mkdirSync(SHARED_DIR, { recursive: true });
+fs.mkdirSync(SHARED_RULE_BACKUP_DIR, { recursive: true });
 
 const send = (res, status, body, type = 'text/plain; charset=utf-8') => {
   res.writeHead(status, { 'Content-Type': type, 'Cache-Control': 'no-store' });
@@ -212,6 +223,34 @@ const deleteRule = (scope, from) => {
   writeJson(file, data);
 };
 
+const normalizeImportedRules = (data) => {
+  const words = data?.words || data;
+  if (!words || typeof words !== 'object' || Array.isArray(words)) {
+    throw new Error('Invalid pronunciation dictionary format.');
+  }
+
+  const normalized = {};
+  for (const [from, to] of Object.entries(words)) {
+    const key = String(from || '').trim();
+    const value = String(to || '').trim();
+    if (key && value) {
+      normalized[key] = value;
+    }
+  }
+
+  return { words: normalized };
+};
+
+const backupSharedRules = () => {
+  ensureRules(SHARED_RULES);
+  const now = new Date();
+  const timestamp = now.toISOString().replace(/[:.]/g, '-');
+  const backupName = `shared-pronunciation-rules-before-import-${timestamp}.json`;
+  const backupPath = path.join(SHARED_RULE_BACKUP_DIR, backupName);
+  fs.copyFileSync(SHARED_RULES, backupPath);
+  return path.relative(ROOT, backupPath);
+};
+
 const server = http.createServer(async (req, res) => {
   try {
     if (!fs.existsSync(MANIFEST)) {
@@ -251,6 +290,28 @@ const server = http.createServer(async (req, res) => {
 
     if (req.method === 'GET' && pathname === '/api/pronunciation-rules') {
       json(res, readRules());
+      return;
+    }
+
+    if (req.method === 'GET' && pathname === '/api/pronunciation-rules/shared/export') {
+      ensureRules(SHARED_RULES);
+      const rules = readJson(SHARED_RULES);
+      const timestamp = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+      res.writeHead(200, {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Content-Disposition': `attachment; filename="shared-pronunciation-rules-${timestamp}.json"`,
+        'Cache-Control': 'no-store',
+      });
+      res.end(`${JSON.stringify(rules, null, 2)}\n`);
+      return;
+    }
+
+    if (req.method === 'POST' && pathname === '/api/pronunciation-rules/shared/import') {
+      const body = await parseBody(req);
+      const imported = normalizeImportedRules(body);
+      const backupPath = backupSharedRules();
+      writeJson(SHARED_RULES, imported);
+      json(res, { ok: true, count: Object.keys(imported.words).length, backupPath });
       return;
     }
 

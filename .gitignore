@@ -44,6 +44,7 @@ public/assets/*/inbox/**
 # Local correction data
 public/assets/shared/corrections.json
 public/assets/shared/pronunciation-rules.json
+public/assets/shared/pronunciation-backups/
 
 # Logs and editor files
 *.log

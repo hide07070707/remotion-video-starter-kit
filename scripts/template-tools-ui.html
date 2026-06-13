@@ -372,6 +372,16 @@
             <div class="card">
               <div class="label">今後にも引き継ぐ共通読み辞書</div>
               <div id="sharedRules" class="small"></div>
+              <div class="actions">
+                <button class="ghost" id="exportSharedRules">共通辞書をバックアップ</button>
+                <label class="ghost">
+                  バックアップから復元
+                  <input id="importSharedRules" type="file" accept="application/json,.json" hidden />
+                </label>
+              </div>
+              <p class="small">
+                別のPCや新しくクローンしたフォルダーでも使いたい場合は、ここから書き出したJSONを保存しておき、復元してください。
+              </p>
             </div>
           </div>
         </div>
@@ -664,6 +674,35 @@
         currentRuleMatches = await api('/api/pronunciation-matches?from=' + encodeURIComponent(from));
         renderRuleMatches();
         $('dictionaryStatus').textContent = `${currentRuleMatches.length}シーン見つかりました。`;
+      };
+
+      $('exportSharedRules').onclick = () => {
+        window.location.href = '/api/pronunciation-rules/shared/export';
+      };
+
+      $('importSharedRules').onchange = async (event) => {
+        const file = event.target.files[0];
+        event.target.value = '';
+        if (!file) return;
+        if (!confirm('共通読み辞書をバックアップ内容で置き換えます。現在の共通辞書は上書きされます。よろしいですか？')) {
+          return;
+        }
+        try {
+          const text = await file.text();
+          const data = JSON.parse(text);
+          const result = await api('/api/pronunciation-rules/shared/import', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+          });
+          pronunciationRules = await api('/api/pronunciation-rules');
+          renderRules();
+          $('dictionaryStatus').textContent =
+            `共通読み辞書を復元しました。登録数: ${result.count}件\n` +
+            `復元前の共通辞書は自動バックアップしました: ${result.backupPath}`;
+        } catch (error) {
+          $('dictionaryStatus').textContent = '共通読み辞書の復元に失敗しました。\n' + error.message;
+        }
       };
 
       $('saveRule').onclick = async () => {

@@ -392,6 +392,14 @@ Do not treat the correction UI as optional after production audio is in place. O
 - image replacement
 - video replacement when supported by the project
 
+Shared pronunciation dictionary handling:
+
+- Treat `public/assets/shared/pronunciation-rules.json` as local user data, not a repository artifact.
+- Do not commit the shared dictionary or automatic backups to GitHub.
+- Use the correction UI's shared dictionary backup/export button before moving to another PC or re-cloning.
+- Use the restore/import button to bring the shared dictionary into a new local project.
+- Restore/import must automatically back up the current shared dictionary before overwriting it, and the UI should tell the user where that automatic backup was saved.
+
 Beginner-friendly wording:
 
 `Remotionプレビューの確認ができました。次は、読み間違い・字幕・画像や動画の差し替えをまとめて直せる修正サイトを開きます。ここで直してから、手作り演出や書き出しへ進む方が安全です。`
