@@ -10,6 +10,7 @@ Use this skill as a production guide for making a new Remotion story video from 
 ## Core Rules
 
 - Keep the workflow beginner-friendly. At every step, explain what was created, what the user should check, and what the next instruction should be.
+- When the user asks "what is the next step?", do not answer from memory. Check the workflow order first, identify the current checkpoint, and then explain the next step. Never skip directly from correction UI confirmation to final MP4 render.
 - Ask questions before acting when important details are missing or ambiguous.
 - At intake, separate `A. Completed Script` from `B. Supplemental YouTube Publishing Notes` when both are provided. Use only the completed script for narration, telops, scenes, and the video body.
 - After intake, save the original pasted materials before splitting: `public/assets/<story>/metadata/source-script.md` for `A. Completed Script` and `public/assets/<story>/metadata/supplemental-notes.md` for `B. Supplemental Notes` when present. If the story folder name is unknown, ask for a simple slug or propose one from the title. Use these saved files as the source of truth for strict telop splitting.
@@ -73,6 +74,7 @@ Use this skill as a production guide for making a new Remotion story video from 
    After the preview is available, always open or offer the correction UI before moving to handmade direction, optional video AI, or final render. Tell beginners: "次は読み間違い、字幕、画像・動画差し替えをまとめて直せる修正サイトで確認します。" The correction UI should support one-scene fixes and bulk fixes where available, including pronunciation dictionary rules that can be shared with future stories.
    `npm run tools`
    Then open `http://localhost:3101/`.
+   After the correction UI check is finished, do not move directly to MP4 render. The normal next checkpoints are: apply/reconfirm corrected audio, subtitles, images, or videos; run a Remotion preview from beginning to end; propose handmade direction; optionally implement approved handmade direction or video AI replacements; run a final preview; then render MP4.
 
 11. Handmade Direction
    Propose handmade direction before implementing. Reuse the patterns in `references/handmade-patterns.md` and, when available, use the `handmade-video-direction` skill for scene candidate lists. Save proposals to `metadata/handmade-direction.md`. If the user approves implementation, record added overlays, sounds, pauses, video clips, or deleted elements in the production log.

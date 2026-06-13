@@ -404,6 +404,18 @@ Beginner-friendly wording:
 
 `Remotionプレビューの確認ができました。次は、読み間違い・字幕・画像や動画の差し替えをまとめて直せる修正サイトを開きます。ここで直してから、手作り演出や書き出しへ進む方が安全です。`
 
+After correction UI confirmation, do not tell beginners that the next step is MP4 render. Use this order:
+
+1. Reconfirm corrected narration audio, subtitles, images, and videos.
+2. Run a beginning-to-end Remotion preview.
+3. Propose handmade direction candidates.
+4. Implement only the handmade direction or video-AI replacements the user approves.
+5. Run the final preview.
+6. Render the MP4.
+7. Create the final YouTube description, chapters, and tags.
+
+When the user asks "what is the next step?", check the workflow position before answering. If the current position is after correction UI but before handmade direction, say that handmade direction is next, not MP4 render.
+
 ## 10. Handmade Direction Check
 
 Do not implement immediately. Output candidates with:
