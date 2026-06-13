@@ -408,15 +408,64 @@ After correction UI confirmation, do not tell beginners that the next step is MP
 
 1. Reconfirm corrected narration audio, subtitles, images, and videos.
 2. Run a beginning-to-end Remotion preview.
-3. Propose handmade direction candidates.
-4. Implement only the handmade direction or video-AI replacements the user approves.
-5. Run the final preview.
-6. Render the MP4.
-7. Create the final YouTube description, chapters, and tags.
+3. Ask how to handle BGM and create/audition/map BGM if needed.
+4. Propose handmade direction candidates.
+5. Implement only the handmade direction or video-AI replacements the user approves.
+6. Run the final preview.
+7. Render the MP4.
+8. Create the final YouTube description, chapters, and tags.
 
-When the user asks "what is the next step?", check the workflow position before answering. If the current position is after correction UI but before handmade direction, say that handmade direction is next, not MP4 render.
+When the user asks "what is the next step?", check the workflow position before answering. If the current position is after correction UI but before BGM confirmation, say that BGM confirmation is next, not MP4 render.
 
-## 10. Handmade Direction Check
+## 10. BGM Check
+
+Use this after correction UI fixes are reflected and the corrected Remotion preview is available, before handmade direction.
+
+Ask:
+
+`次はBGMを確認します。BGMなしでも動画は作れます。入れる場合は、台本のジャンルや雰囲気に合わせて、1曲だけ薄く入れる方法、場面ごとに複数曲を入れる方法、手持ち素材を使う方法、著作権フリー素材を使う方法、外部サービスで作る方法があります。どの方法で進めたいですか？`
+
+Offer:
+
+- no BGM
+- one quiet overall track
+- multiple tracks by chapter, section, or emotional flow
+- user-supplied music files
+- royalty-free music chosen by the user
+- external generation service such as ElevenLabs, only if the user wants it
+
+Do not assume:
+
+- that every video needs BGM
+- that the video is an emotional story
+- that ElevenLabs should be used
+- that chapter count equals BGM count
+
+If BGM is used, create a BGM design table:
+
+| BGM ID | Range | Purpose | Mood | Sound Direction | File Name | Volume | Fade |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+
+Rules:
+
+- match the script's genre and mood
+- keep BGM quieter than narration
+- avoid vocals unless explicitly approved
+- use fades at transitions
+- lower or remove BGM around important narration, silence, sound effects, or emotional peaks when needed
+- confirm licensing/usage rights before final render
+- after placing BGM in Remotion, preview the narration/BGM balance before handmade direction or final render
+
+If generating BGM with ElevenLabs or another service:
+
+- create short candidates first
+- build a simple audition page with audio players
+- ask the user which tracks to adopt or remake
+- do not place generated BGM into the manifest/Remotion timeline until the user approves it
+
+Save the approved BGM plan to `metadata/bgm-plan.md`.
+
+## 11. Handmade Direction Check
 
 Do not implement immediately. Output candidates with:
 
@@ -427,7 +476,7 @@ Ask which set to implement first.
 
 Save proposal to `metadata/handmade-direction.md`.
 
-## 11. Video AI Check
+## 12. Video AI Check
 
 Ask whether to use:
 
@@ -445,7 +494,7 @@ Warn that numbers, tables, and Japanese text should usually stay in Remotion.
 
 Save approved prompts to `prompts/video-ai-prompts.md`.
 
-## 12. YouTube Publishing Check
+## 13. YouTube Publishing Check
 
 Use this only after the finished video structure and actual or user-approved timestamps are known. If timestamps are not known, do not write the final description yet. First output a timestamp confirmation checklist based on the finished chapter structure.
 

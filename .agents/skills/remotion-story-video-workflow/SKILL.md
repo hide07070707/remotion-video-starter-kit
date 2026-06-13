@@ -1,6 +1,6 @@
 ---
 name: remotion-story-video-workflow
-description: Guide a beginner-friendly, checkpoint-based workflow for making long-form Remotion story videos from a new script and optional supplemental YouTube publishing notes. Use when the user wants to create a new story video, separate script from supplemental material, split a script into strict telop scenes, create a combined scene plan and image-group proposal, create character master image prompts for ChatGPT image2.0, Nano Banana Pro, or another image-generation tool, create copyable image prompts, build a manifest, preview in Remotion, open the correction UI, propose handmade direction, create optional video-AI prompts, record production changes, create YouTube description/chapter/tag drafts, or render the final MP4.
+description: Guide a beginner-friendly, checkpoint-based workflow for making long-form Remotion story videos from a new script and optional supplemental YouTube publishing notes. Use when the user wants to create a new story video, separate script from supplemental material, split a script into strict telop scenes, create a combined scene plan and image-group proposal, create character master image prompts for ChatGPT image2.0, Nano Banana Pro, or another image-generation tool, create copyable image prompts, build a manifest, preview in Remotion, open the correction UI, choose or audition BGM, propose handmade direction, create optional video-AI prompts, record production changes, create YouTube description/chapter/tag drafts, or render the final MP4.
 ---
 
 # Remotion Story Video Workflow
@@ -19,7 +19,7 @@ Use this skill as a production guide for making a new Remotion story video from 
 - Use supplemental notes only to understand intent, record production changes, prepare the final YouTube description, adjust chapters to real timestamps, organize sources, and propose tag candidates.
 - Keep a lightweight production log whenever the approved script changes, extra overlays are added, chapter structure changes, or sources/tags need later publishing follow-up. Use `references/production-log.md` when the final YouTube draft needs this context.
 - Do not ask for visual style before strict telop splitting. Ask for visual style only after the strict telop split is approved and before creating scene plans, image groups, character master prompts, or image prompts. Offer a few examples and tell the user they may provide reference images for "something like this" style guidance.
-- Stop for confirmation at major checkpoints: strict telop split, combined scene plan and image-group proposal, character master prompts, image prompts, asset mapping, manifest draft, Remotion preview, handmade direction, optional video generation, and final render.
+- Stop for confirmation at major checkpoints: strict telop split, combined scene plan and image-group proposal, character master prompts, image prompts, asset mapping, manifest draft, Remotion preview, correction UI, BGM choice/audition, handmade direction, optional video generation, and final render.
 - Do strict telop splitting before creative scene planning. Preserve the original script text exactly.
 - In strict telop splitting, judge each sentence before splitting: keep any sentence that fits within 20 Japanese characters on one line; keep any sentence that fits within two lines in one scene; split across multiple scenes only when the sentence cannot reasonably fit within two 20-character lines, and then split at a natural meaning boundary. Do not split only because a comma or period appears, because a line "looks long", or for visual preference.
 - Default strict telop splitting to scene 1 and the full `A. Completed Script` unless the user specifies another start number or range. For beginners, say "通常は1番から始めます。1番からで進めて大丈夫ですか？" instead of asking an open-ended start-number question. If the script is long, propose splitting in chapter-sized batches for easier checking.
@@ -31,7 +31,8 @@ Use this skill as a production guide for making a new Remotion story video from 
 - If API keys are needed, tell the user to put them in `.env` and confirm `.env` is ignored by Git. Never print or commit API keys.
 - When using ElevenLabs for Japanese narration, do not choose a voice only from the account's generic voice list. First search Japanese shared-library voices, create a small voice audition page, and get user approval before generating story audio. Prefer Japanese voices with `language=ja`, `accent=standard`, and `use_case=narrative_story`. For Japanese story narration, start with `eleven_v3` and stable settings such as `stability 0.76-0.88`, `similarity_boost 0.84-0.85`, low `style 0.03-0.14`, and `use_speaker_boost: true`. If a voice is too dark or flat, audition the same voice with "standard / warmer / brighter" variants before switching voices.
 - For Remotion still-image motion, default to a calm Ken Burns style like the approved Washoku story: group consecutive scenes using the same image, animate the image for the full visual-group duration, and cycle one-direction motion types such as `slowZoom`, `panLeft`, `panRight`, `kenBurns`, and `zoomOut`. Do not reset motion at each subtitle, do not use back-and-forth pulsing zoom, and do not stop motion halfway through a long image group unless the user explicitly asks for a static hold.
-- After production audio is in the manifest and the Remotion preview is ready, always launch or clearly offer the correction UI as the next normal checkpoint. Do this even if the user has not asked for it yet. Explain that the correction UI is for reading mistakes, subtitle fixes, bulk pronunciation dictionary rules, image replacement, and video replacement. Do not skip directly from preview to handmade direction or final render.
+- After production audio is in the manifest and the Remotion preview is ready, always launch or clearly offer the correction UI as the next normal checkpoint. Do this even if the user has not asked for it yet. Explain that the correction UI is for reading mistakes, subtitle fixes, bulk pronunciation dictionary rules, image replacement, and video replacement. Do not skip directly from preview to BGM, handmade direction, or final render.
+- After correction UI fixes and a corrected Remotion preview, ask how to handle BGM before handmade direction. Do not assume every video needs BGM, and do not assume ElevenLabs. Offer BGMなし, one overall track, multiple tracks by chapter/emotional flow, user-supplied music, royalty-free music, or an external generation service such as ElevenLabs when the user wants it. Explain that BGM should match the script's genre and mood, stay quiet under narration, and be checked for licensing/usage rights.
 - Treat the shared pronunciation dictionary as local user data. Do not commit `public/assets/shared/pronunciation-rules.json` or its backups. When beginners want to reuse readings on another PC, another clone, or after re-cloning, tell them to use the correction UI's shared dictionary backup/export and restore/import buttons. Restoring should first make an automatic backup of the current shared dictionary before overwriting it.
 - Prefer adding scenes or overlays over rewriting existing approved scenes.
 
@@ -76,16 +77,20 @@ Use this skill as a production guide for making a new Remotion story video from 
    Then open `http://localhost:3101/`.
    After the correction UI check is finished, do not move directly to MP4 render. The normal next checkpoints are: apply/reconfirm corrected audio, subtitles, images, or videos; run a Remotion preview from beginning to end; propose handmade direction; optionally implement approved handmade direction or video AI replacements; run a final preview; then render MP4.
 
-11. Handmade Direction
+11. BGM Choice and Audition
+   After correction UI fixes are reflected and the corrected Remotion preview is available, ask about BGM before handmade direction. Say: "次はBGMを確認します。BGMなしでも動画は作れます。入れる場合は、台本のジャンルや雰囲気に合わせて、1曲だけ薄く入れる方法、場面ごとに複数曲を入れる方法、手持ち素材を使う方法、著作権フリー素材を使う方法、外部サービスで作る方法があります。どの方法で進めたいですか？"
+   If the user wants BGM, create a BGM design table with range, purpose, mood, file name, volume guidance, and fade guidance. If the user chooses ElevenLabs or another generation service, create short candidates and a simple audition page before placing them in Remotion. If the user supplies files, inspect names and map them to ranges. Always keep BGM quieter than narration, avoid vocals unless explicitly approved, and check licensing/usage rights before final render.
+
+12. Handmade Direction
    Propose handmade direction before implementing. Reuse the patterns in `references/handmade-patterns.md` and, when available, use the `handmade-video-direction` skill for scene candidate lists. Save proposals to `metadata/handmade-direction.md`. If the user approves implementation, record added overlays, sounds, pauses, video clips, or deleted elements in the production log.
 
-12. Optional Video AI
+13. Optional Video AI
    Ask whether the user wants no video AI, Higgsfield, another video AI, or manual replacement. For video AI, create provider-neutral image-to-video prompts and tell the user which source image, duration, aspect ratio, and motion should be used. Save approved video prompts to `prompts/video-ai-prompts.md`.
 
-13. Final Render
+14. Final Render
    Before rendering, check for missing media and suspicious video files. For long videos, chunked rendering and concatenation is acceptable. Report the output path clearly.
 
-14. YouTube Publishing Draft
+15. YouTube Publishing Draft
    After the final video timing is known, use the supplemental notes and the recorded production changes to create a copy-ready YouTube description, corrected chapters, source/reference section, hashtags, and separate YouTube Studio tag candidates. Read `references/production-log.md` if the production history is scattered across the chat or files. Include only what the finished video actually covers. Do not invent URLs, sources, or claims. If exact timestamps are not known, create a timestamp confirmation checklist first and ask the user to fill in the actual times before writing the final copy.
 
 ## User Prompts to Recommend
