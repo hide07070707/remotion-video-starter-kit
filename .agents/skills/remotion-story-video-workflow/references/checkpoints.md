@@ -472,6 +472,14 @@ Do not implement immediately. Output candidates with:
 | Priority | Scene | Reason | Suggested Direction | Risk |
 | --- | --- | --- | --- | --- |
 
+When creating candidates, check these first:
+
+- chapter-title treatments for chapter-start scenes
+- selective emphasis text overlays that show only key words or short phrases
+- explanatory text overlays that clarify the meaning without repeating the full narration
+
+For text overlays, vary position, size, color, opacity, and entrance timing while keeping the normal subtitle readable. Do not use full script text as a decorative overlay.
+
 Ask which set to implement first.
 
 Save proposal to `metadata/handmade-direction.md`.

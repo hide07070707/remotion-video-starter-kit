@@ -5,7 +5,9 @@ These patterns come from a sample story video production process. Use them as id
 ## Good Places to Add Handmade Direction
 
 - Opening hook: a short, darker setup before the main story starts.
+- Chapter starts: a dedicated title treatment before the chapter's story content continues.
 - A line that reframes the video: large center text, slow drop-in, or a quiet title card.
+- Key words or short interpretive phrases: show only the important phrase, not the full narration text.
 - Lists spoken one by one: whiteboard, memo card, checklist, or pinned paper.
 - Numbers: a large number card, table, stacked items, or visual count-up.
 - Before/after solution: left-right comparison with paired reveal.
@@ -17,6 +19,9 @@ These patterns come from a sample story video production process. Use them as id
 
 ## Visual Patterns
 
+- Chapter title card: chapter number and title enter separately, with a subtle band, underline, or light sweep.
+- Selective emphasis text: one key phrase appears in the center, upper corner, or near a meaningful object while the normal subtitle remains short and readable.
+- Explanatory overlay: a short helper phrase that clarifies the meaning of the narration, separate from the spoken script.
 - Whiteboard overlay: best for "three points" or "what to check".
 - Memo card: best for a short explanation or calculation.
 - Checklist: best for viewer participation.
@@ -24,6 +29,15 @@ These patterns come from a sample story video production process. Use them as id
 - Soft underline or hand-drawn circle: only when it points to a meaningful object.
 - Small guide character: useful for warmth, but keep it secondary and avoid hiding important faces/text.
 - Large centered text: useful for emotional or important lines.
+
+## Text Overlay Rules
+
+- Do not turn the whole script into large decorative text.
+- Keep normal subtitles separate from emphasis/explanatory overlays.
+- Prefer short phrases: usually 1-12 Japanese characters for emphasis, or one short sentence for explanation.
+- Vary placement across scenes: center, top-left, top-right, side, or just above the lower subtitle area.
+- Vary treatment gently: size, color, opacity, delay, fade, underline, or one-word reveal.
+- Keep enough contrast for readability, but avoid covering important faces, animals, hands, or props.
 
 ## Sound Patterns
 
