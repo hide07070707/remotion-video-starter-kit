@@ -34,6 +34,8 @@ These patterns come from a sample story video production process. Use them as id
 
 - Do not turn the whole script into large decorative text.
 - Keep normal subtitles separate from emphasis/explanatory overlays.
+- If an emphasis overlay repeats the same or nearly the same wording as the normal subtitle, hide the normal subtitle only for that scene to avoid duplicate text.
+- If an explanatory overlay adds different meaning from the normal subtitle, both may remain visible, but only when they do not overlap or compete.
 - Prefer short phrases: usually 1-12 Japanese characters for emphasis, or one short sentence for explanation.
 - Vary placement across scenes: center, top-left, top-right, side, or just above the lower subtitle area.
 - Vary treatment gently: size, color, opacity, delay, fade, underline, or one-word reveal.

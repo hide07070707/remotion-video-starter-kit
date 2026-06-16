@@ -478,7 +478,7 @@ When creating candidates, check these first:
 - selective emphasis text overlays that show only key words or short phrases
 - explanatory text overlays that clarify the meaning without repeating the full narration
 
-For text overlays, vary position, size, color, opacity, and entrance timing while keeping the normal subtitle readable. Do not use full script text as a decorative overlay.
+For text overlays, vary position, size, color, opacity, and entrance timing. Do not use full script text as a decorative overlay. If an overlay repeats the same or nearly the same wording as the normal subtitle, hide the normal subtitle only for that scene so duplicate text does not appear. If the overlay is a different explanatory phrase, keep both only when they do not overlap or compete.
 
 Ask which set to implement first.
 
