@@ -14,6 +14,7 @@ Use this skill as a production guide for making a new Remotion story video from 
 - Ask questions before acting when important details are missing or ambiguous.
 - At intake, separate `A. Completed Script` from `B. Supplemental YouTube Publishing Notes` when both are provided. Use only the completed script for narration, telops, scenes, and the video body.
 - After intake, save the original pasted materials before splitting: `public/assets/<story>/metadata/source-script.md` for `A. Completed Script` and `public/assets/<story>/metadata/supplemental-notes.md` for `B. Supplemental Notes` when present. If the story folder name is unknown, ask for a simple slug or propose one from the title. Use these saved files as the source of truth for strict telop splitting.
+- When supplemental notes are provided, read `references/youtube-publishing.md` and proactively tell the user that these notes will be used later for YouTube posting preparation, not for the video body.
 - Save every approved checkpoint artifact before moving on. Use `references/artifact-storage.md` for file names. Do not rely on chat history for source text, approved telop splits, scene plans, character master prompts, image prompt batches, asset maps, or production changes.
 - Never turn supplemental notes into narration, telops, scene text, or video overlays unless the user explicitly moves specific text into the completed script.
 - Use supplemental notes only to understand intent, record production changes, prepare the final YouTube description, adjust chapters to real timestamps, organize sources, and propose tag candidates.
@@ -35,12 +36,13 @@ Use this skill as a production guide for making a new Remotion story video from 
 - After correction UI fixes and a corrected Remotion preview, ask how to handle BGM before handmade direction. Do not assume every video needs BGM, and do not assume ElevenLabs. Offer BGMなし, one overall track, multiple tracks by chapter/emotional flow, user-supplied music, royalty-free music, or an external generation service such as ElevenLabs when the user wants it. Explain that BGM should match the script's genre and mood, stay quiet under narration, and be checked for licensing/usage rights.
 - When proposing handmade direction, prioritize two text-direction families before one-off decorative ideas: chapter title treatments at chapter starts, and selective emphasis/explanatory text overlays that show only key words or short interpretive phrases instead of repeating the full narration. Vary placement, size, color, opacity, and entrance timing across top/center/bottom positions while keeping normal subtitles readable. If an emphasis overlay repeats the same or nearly the same wording as the normal subtitle, hide the normal subtitle for that scene so duplicate text does not appear on the same screen. If an explanatory overlay adds different meaning, both may remain visible only when they do not overlap or compete.
 - Treat the shared pronunciation dictionary as local user data. Do not commit `public/assets/shared/pronunciation-rules.json` or its backups. When beginners want to reuse readings on another PC, another clone, or after re-cloning, tell them to use the correction UI's shared dictionary backup/export and restore/import buttons. Restoring should first make an automatic backup of the current shared dictionary before overwriting it.
+- After the MP4 is rendered and the user confirms the final video is OK, proactively offer YouTube posting preparation. Explain that Codex can use the completed script, supplemental notes, manifest timing, and production log to prepare the final title, description, chapters, hashtags, YouTube Studio tags, fixed comment, and content-alignment check.
 - Prefer adding scenes or overlays over rewriting existing approved scenes.
 
 ## Workflow
 
 1. Intake
-   Ask the user to paste the completed script and optional supplemental YouTube publishing notes using the simple `A/B` template in `references/prompt-templates.md`. If both are pasted together, identify which range is `A. Completed Script` and which range is `B. Supplemental Notes`. Ask clarifying questions if the boundary is unclear. Save the separated text into `public/assets/<story>/metadata/` before any splitting. For beginners, assume the split starts at scene 1 and covers all of `A. Completed Script`; ask only whether scene 1 is okay, whether the full script should be split at once, and whether headings or separator lines should be included. Do not ask for visual style yet.
+   Ask the user to paste the completed script and optional supplemental YouTube publishing notes using the simple `A/B` template in `references/prompt-templates.md`. If both are pasted together, identify which range is `A. Completed Script` and which range is `B. Supplemental Notes`. Ask clarifying questions if the boundary is unclear. Save the separated text into `public/assets/<story>/metadata/` before any splitting. If supplemental notes are present, follow `references/youtube-publishing.md`: summarize what the video is about, which file is the body source, how supplemental notes will be used, what must not enter the video body, what makes the video unique, and the next production step. For beginners, assume the split starts at scene 1 and covers all of `A. Completed Script`; ask only whether scene 1 is okay, whether the full script should be split at once, and whether headings or separator lines should be included. Do not ask for visual style yet.
 
 2. Strict Telop Split
    Use the strict prompt in `references/prompt-templates.md`. Split the full `A. Completed Script` unless the user asks for a specific chapter/range. For long scripts, split in chapter-sized batches so the user can check safely. Keep all original characters, punctuation, particles, symbols, ellipses, and brackets unchanged. Before splitting each sentence, count/estimate whether it fits on one 20-character line, then whether it fits within one two-line scene. Only sentences too long for one scene should be split across multiple scenes, and only at natural meaning boundaries. Start from scene 1 unless the user specifies another start number. Stop and ask the user to approve or edit this strict split. After approval, save it to `metadata/telop-split.md`. Tell beginners this Markdown file can be edited by hand; if they edit it, reread the file and verify it still matches `metadata/source-script.md` before continuing.
@@ -92,7 +94,7 @@ Use this skill as a production guide for making a new Remotion story video from 
    Before rendering, check for missing media and suspicious video files. For long videos, chunked rendering and concatenation is acceptable. Report the output path clearly.
 
 15. YouTube Publishing Draft
-   After the final video timing is known, use the supplemental notes and the recorded production changes to create a copy-ready YouTube description, corrected chapters, source/reference section, hashtags, and separate YouTube Studio tag candidates. Read `references/production-log.md` if the production history is scattered across the chat or files. Include only what the finished video actually covers. Do not invent URLs, sources, or claims. If exact timestamps are not known, create a timestamp confirmation checklist first and ask the user to fill in the actual times before writing the final copy.
+   After the final video timing is known, use `references/youtube-publishing.md` plus the supplemental notes and recorded production changes to create copy-ready posting information. Read `references/production-log.md` if the production history is scattered across the chat or files. Include only what the finished video actually covers. Do not invent URLs, sources, or claims. If exact timestamps are not known, create a timestamp confirmation checklist first and ask the user to fill in the actual times before writing the final copy.
 
 ## User Prompts to Recommend
 
@@ -118,6 +120,8 @@ Use this skill as a production guide for making a new Remotion story video from 
 - `完成版MP4を書き出してください。`
 - `動画完成後の説明欄に反映するため、制作中の変更点を整理してください。`
 - `動画が完成しました。完成動画の内容に合わせて、YouTube説明欄の最終版を作ってください。`
+- `YouTube投稿準備をして。タイトル、説明欄、チャプター、タグ、固定コメントを最終化してください。`
+- `概要欄とチャプターを最終化して。補助資料と完成動画の内容にズレがないかも確認してください。`
 - `正確なタイムスタンプが不明な場合は、先にタイムスタンプ確認リストを作ってください。`
 
 ## References
@@ -128,3 +132,4 @@ Use this skill as a production guide for making a new Remotion story video from 
 - `references/prompt-templates.md`: reusable prompt templates.
 - `references/handmade-patterns.md`: handmade direction ideas learned from the sample story video production process.
 - `references/production-log.md`: lightweight record format for changes that affect final YouTube publishing copy.
+- `references/youtube-publishing.md`: rules for separating completed script from supplemental notes and creating final YouTube title, description, chapters, hashtags, tags, fixed comment, and alignment checks.

@@ -506,6 +506,10 @@ Save approved prompts to `prompts/video-ai-prompts.md`.
 
 Use this only after the finished video structure and actual or user-approved timestamps are known. If timestamps are not known, do not write the final description yet. First output a timestamp confirmation checklist based on the finished chapter structure.
 
+Read `youtube-publishing.md` before writing the final posting copy. It contains the detailed rules for completed-script/supplemental-note separation, final output format, chapter naming, description alignment, hashtags, tags, fixed comments, and mismatch checks.
+
+If the MP4 has been rendered and the user says the final check is OK, proactively offer this checkpoint. Do not wait for the user to know the exact phrase "YouTube投稿準備". Say that Codex can prepare the title, description, actual-time chapters, hashtags, YouTube Studio tags, and fixed comment.
+
 Before writing the final copy, gather the supplemental notes and the production log. If the log is missing, reconstruct only from confirmed edits, preview notes, manifest fields, and user-approved changes. Ask before using uncertain changes.
 
 Save timestamp checklist to `metadata/timestamp-checklist.md` and final copy to `metadata/youtube-publishing-final.md`.
@@ -518,15 +522,19 @@ Timestamp confirmation checklist format:
 
 Output:
 
+- final title, with up to two alternates only if useful
 - copy-ready YouTube description
 - actual chapter list with concrete chapter names
 - `参考・出典` section if sources were supplied or verified
 - hashtags inside the description
 - separate YouTube Studio tag candidates
+- viewer-friendly fixed comment
+- mismatch check between the finished video and the posting information
 
 Rules:
 
 - include only content that appears in the finished video
+- prefer the supplemental notes' unique argument, specific examples, judgement axis, conclusion, and viewer takeaway when they match the finished video
 - align title, thumbnail idea, body, and description
 - do not invent URLs, sources, medical claims, or statistics
 - use supplemental notes as support, not as video-body text
@@ -535,3 +543,31 @@ Rules:
 - include 3 to 5 relevant hashtags in the description body
 - keep SEO natural; do not stuff keywords
 - chapter names must be concrete, not generic labels such as "first", "second", or "summary"
+- chapters must start at `0:00`
+- chapters must not be only bare chapter numbers or generic labels
+- fixed comments should thank viewers and ask a gentle theme-matching question without pressure or guilt
+
+Final output format:
+
+```text
+【1. タイトル 最終案】
+
+【2. 説明欄 最終案】
+
+【3. チャプター 最終案】
+
+【4. ハッシュタグ】
+
+【5. YouTube Studioタグ候補】
+
+【6. 固定コメント案】
+
+【7. 動画内容と投稿情報のズレ確認】
+・タイトルと本編内容にズレはないか：
+・説明欄と本編内容にズレはないか：
+・チャプター名と実際の章内容にズレはないか：
+・ハッシュタグと本編内容にズレはないか：
+・タグ候補と本編内容にズレはないか：
+・参考・補足に、未確認情報や誤認リスクはないか：
+・量産型に見えないよう、この動画だけの独自性が見えるか：
+```
